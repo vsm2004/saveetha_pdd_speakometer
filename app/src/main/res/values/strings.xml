@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Speakometer</string>
+    <string name="app_title">SPEAK-O-METER</string>
+    <string name="tagline">Unleash your true
+speech ability</string>
+    <!-- Existing -->
+
+    <!-- Login / Signup -->
+    <string name="header_start">Start Speaking Better Today</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_account">Already having an account? </string>
+    <string name="signin">Sign In</string>
+    <string name="loading_zero_percent">0%</string>
+    <string name="login_title">Login</string>
+    <string name="or_login">OR\nLogin with your</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+
+    <!-- Accessibility -->
+    <string name="google_logo_desc">Google logo</string>
+    <string name="facebook_logo_desc">Facebook logo</string>
+
+    <string name="email_label">Email:</string>
+    <string name="submit">Submit</string>
+    <string name="email_hint">Enter your email</string>
+
+    <string name="password_label">Password:</string>
+    <string name="password_hint">Enter your password</string>
+
+    <string name="username_label">Username:</string>
+    <string name="username_hint">Your full name</string>
+
+    <!-- Welcome Section -->
+    <string name="welcome_back">WELCOME BACK,</string>
+    <string name="default_user">THE USER</string>
+
+    <!-- Button -->
+    <string name="start_analysis">Start Analysis</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_practice">Practice</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_app_logo">Speakometer logo</string>
+    <string name="desc_profile_image">User profile image</string>
+    <string name="desc_upload_audio">Upload audio option</string>
+    <string name="desc_record_audio">Record audio option</string>
+</resources>

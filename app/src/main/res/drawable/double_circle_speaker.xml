@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+            <size android:width="120dp" android:height="120dp" />
+        </shape>
+    </item>
+
+    <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+        <shape android:shape="oval">
+            <solid android:color="#F5F5F5" />
+        </shape>
+    </item>
+
+    <item android:top="30dp" android:bottom="30dp" android:left="30dp" android:right="30dp">
+        <bitmap
+            android:src="@drawable/speaker_button"
+            android:gravity="center" />
+    </item>
+
+</layer-list>
