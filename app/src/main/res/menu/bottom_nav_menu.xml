@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/home_page"
-        android:title="Home" />
-
+        android:icon="@drawable/home_highlight"
+        android:title="@string/home" />
     <item
         android:id="@+id/nav_history"
-        android:icon="@drawable/history_page"
-        android:title="History" />
-
+        android:icon="@drawable/history"
+        android:title="@string/history" />
     <item
         android:id="@+id/nav_practice"
-        android:icon="@drawable/practice_page"
-        android:title="Practice" />
-
+        android:icon="@drawable/practice"
+        android:title="@string/practice" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/profile_image"
-        android:title="Profile" />
-
+        android:icon="@drawable/profile"
+        android:title="@string/profile" />
 </menu>

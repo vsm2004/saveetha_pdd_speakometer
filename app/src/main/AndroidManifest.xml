@@ -16,10 +16,25 @@
             android:name=".HomePageActivity"
             android:exported="false" />
         <activity
+            android:name=".OnboardSlideThreeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardSlideTwoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardSlideOneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FinalSetupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PermissionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoadingToHomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".SigningInActivity"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

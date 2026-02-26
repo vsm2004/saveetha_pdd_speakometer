@@ -1,99 +1,95 @@
-package com.example.speakometerfrontend // Make sure this matches your package name
+package com.example.speakometerfrontend
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import de.hdodenhof.circleimageview.CircleImageView
+import androidx.cardview.widget.CardView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ * HomePageActivity: Primary dashboard for the Speak-o-Meter application (Slide #10).
+ * Handles localized data binding for action cards and preserves high-fidelity
+ * icon rendering in the Bottom Navigation.
+ */
 class HomePageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // This links the Kotlin file to your activity_homepage.xml layout
         setContentView(R.layout.activity_homepage)
 
-        // --- Find all the interactive views from your layout ---
+        // 1. Initialize Bottom Navigation and Fix Icon Fidelity
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Top section
-        val userNameTextView: TextView = findViewById(R.id.tv_user_name)
-        val profileImageView: CircleImageView = findViewById(R.id.profile_image)
+        /*
+           CRITICAL FIX: Set itemIconTintList to null.
+           This bypasses the system's default monochromatic overlay,
+           allowing the 'Speak-o-Meter' icons to render their native
+           multi-color gradients and transparency.
+        */
+        bottomNav.itemIconTintList = null
 
-        // Main content
-        val analysisButton: AppCompatButton = findViewById(R.id.btn_analysis)
+        // 2. Localized Data Binding for Action Cards
+        // This ensures tv_record_title and tv_upload_title show distinct text
+        setupActionCards()
 
-        // Custom Bottom Navigation Buttons
-        val homeButton: ImageButton = findViewById(R.id.btn_home)
-        val historyButton: ImageButton = findViewById(R.id.btn_history)
-        val practiceButton: ImageButton = findViewById(R.id.btn_practice)
-        val profileButton: ImageButton = findViewById(R.id.btn_profile)
+        // 3. Setup Navigation Logic
+        setupBottomNavigation(bottomNav)
 
-        // --- Set up click listeners for all buttons ---
-
-        // Analysis Button
-        analysisButton.setOnClickListener {
-            // TODO: Implement the action for starting analysis
-            Toast.makeText(this, "Start Analysis Clicked!", Toast.LENGTH_SHORT).show()
+        // 4. Setup Profile Interaction
+        findViewById<TextView>(R.id.tv_profile_initial).setOnClickListener {
+            // Navigate to Profile Screen (Slide #34)
+            val intent = Intent(this, ProfilePageActivity::class.java)
+            startActivity(intent)
         }
-
-        // Profile image in the header
-        profileImageView.setOnClickListener {
-            // You can make this open the profile screen as well
-            Toast.makeText(this, "Profile Image Clicked!", Toast.LENGTH_SHORT).show()
-            // For example, you could navigate to a new ProfileActivity
-            // startActivity(Intent(this, ProfileActivity::class.java))
-        }
-
-        // --- Bottom Navigation Button Clicks ---
-
-        homeButton.setOnClickListener {
-            // Since we are already on the home page, we can just give feedback
-            // or reload the content if necessary.
-            Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show()
-            // Here you might want to highlight the button
-            updateButtonSelection(it.id)
-        }
-
-        historyButton.setOnClickListener {
-            // TODO: Replace with navigation to a HistoryActivity or HistoryFragment
-            Toast.makeText(this, "History Clicked", Toast.LENGTH_SHORT).show()
-            updateButtonSelection(it.id)
-            // Example: startActivity(Intent(this, HistoryActivity::class.java))
-        }
-
-        practiceButton.setOnClickListener {
-            // TODO: Replace with navigation to a PracticeActivity or PracticeFragment
-            Toast.makeText(this, "Practice Clicked", Toast.LENGTH_SHORT).show()
-            updateButtonSelection(it.id)
-        }
-
-        profileButton.setOnClickListener {
-            // TODO: Replace with navigation to a ProfileActivity or ProfileFragment
-            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
-            updateButtonSelection(it.id)
-        }
-
-        // Set the initial selected state for the home button
-        updateButtonSelection(R.id.btn_home)
     }
 
     /**
-     * A helper function to visually update which button is selected.
-     * This is a basic example; you can make it more advanced.
+     * Assigns specific string resources and click listeners to the Record and Upload cards.
      */
-    private fun updateButtonSelection(selectedButtonId: Int) {
-        // You could change the background or icon tint here to show selection.
-        // For example, setting the background of the selected button.
-        // This is a simple placeholder to show the concept.
-        findViewById<ImageButton>(R.id.btn_home).isSelected = (selectedButtonId == R.id.btn_home)
-        findViewById<ImageButton>(R.id.btn_history).isSelected = (selectedButtonId == R.id.btn_history)
-        findViewById<ImageButton>(R.id.btn_practice).isSelected = (selectedButtonId == R.id.btn_practice)
-        findViewById<ImageButton>(R.id.btn_profile).isSelected = (selectedButtonId == R.id.btn_profile)
+    private fun setupActionCards() {
+        val cvRecord = findViewById<CardView>(R.id.cv_record)
+        val cvUpload = findViewById<CardView>(R.id.cv_upload)
 
-        // To make this visually work, you would need to create a selector drawable for the button backgrounds
-        // e.g., android:background="@drawable/bottom_nav_button_selector"
+        // Record Card Interaction
+        cvRecord.setOnClickListener {
+            Toast.makeText(this, getString(R.string.record_audio) + " clicked", Toast.LENGTH_SHORT).show()
+            // Future logic: Trigger Audio Recorder
+        }
+
+        // Upload Card Interaction
+        cvUpload.setOnClickListener {
+            Toast.makeText(this, getString(R.string.upload_audio) + " clicked", Toast.LENGTH_SHORT).show()
+            // Future logic: Trigger File Picker
+        }
+    }
+
+    /**
+     * Handles BottomNavigationView item selection logic.
+     */
+    private fun setupBottomNavigation(bottomNav: BottomNavigationView) {
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    // Already on Home
+                    true
+                }
+                R.id.nav_history -> {
+                    Toast.makeText(this, "Opening History", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_practice -> {
+                    Toast.makeText(this, "Opening Practice Mode", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_profile -> {
+                    // Navigate to Profile Screen
+                    startActivity(Intent(this, ProfilePageActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

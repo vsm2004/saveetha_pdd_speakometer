@@ -1,54 +1,106 @@
-package com.example.speakometerfrontend // Make sure this matches your package name
+package com.example.speakometerfrontend
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.util.Patterns
+import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.graphics.toColorInt // Essential KTX import
 
 class LoginActivity : AppCompatActivity() {
 
+    // Move views to class level to resolve "Unused Variable" errors
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // This links the Kotlin file to your XML layout file.
-        setContentView(R.layout.activity_login_signup)
+        setContentView(R.layout.activity_login)
 
-        // Find the views from your XML layout by their IDs
-        val emailEditText: EditText = findViewById(R.id.et_email)
-        val passwordEditText: EditText = findViewById(R.id.et_password)
-        val usernameEditText: EditText = findViewById(R.id.et_username)
-        val submitButton: Button = findViewById(R.id.btn_submit)
-        val signInLink: TextView = findViewById(R.id.tv_signin_link)
+        // Initialize variables
+        val backButton: ImageButton = findViewById(R.id.btn_back_login)
+        emailEditText = findViewById(R.id.et_login_email)
+        passwordEditText = findViewById(R.id.et_login_password)
+        val forgotPasswordText: TextView = findViewById(R.id.tv_forgot_password)
+        val loginButton: AppCompatButton = findViewById(R.id.btn_login_final)
+        val signUpFooter: TextView = findViewById(R.id.tv_signup_footer)
 
-        // Set a click listener for the "Submit" button
-        submitButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            val username = usernameEditText.text.toString()
+        backButton.setOnClickListener { finish() }
 
-            // For now, we'll just show a Toast message with the input.
-            // Later, you will add your signup/login logic here.
-            if (email.isNotEmpty() && password.isNotEmpty() && username.isNotEmpty()) {
-                val message = "Email: $email\nUsername: $username"
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        forgotPasswordText.setOnClickListener {
+            Toast.makeText(this, "Forgot Password Clicked", Toast.LENGTH_SHORT).show()
+        }
 
-                // TODO: Add your user registration/authentication logic here (e.g., with Firebase)
-
-            } else {
-                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+        loginButton.setOnClickListener {
+            if (validateInput()) {
+                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+                // Navigation logic for simulation goes here
             }
         }
-        
-        // Set a click listener for the "Sign In" link
-        signInLink.setOnClickListener {
-            // Create an Intent to start your SigningInActivity
-            val intent = Intent(this, SigningInActivity::class.java)
 
-            // Execute the intent to open the new activity
-            startActivity(intent)
+        setupSignUpFooter(signUpFooter)
+    }
+
+    private fun validateInput(): Boolean {
+        // Use the class-level variables initialized in onCreate
+        val email = emailEditText.text.toString().trim()
+        val password = passwordEditText.text.toString()
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Email address is required.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (password.isEmpty()) {
+            Toast.makeText(this, "Password cannot be empty.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private fun setupSignUpFooter(textView: TextView) {
+        val fullText = getString(R.string.signup_footer)
+        val clickableText = "Sign up"
+        val startIndex = fullText.indexOf(clickableText)
+
+        if (startIndex == -1) return
+
+        val spannableString = SpannableString(fullText)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+                startActivity(intent)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                // Use KTX extension for Cyan theme color
+                ds.color = "#06B6D4".toColorInt()
+                ds.isUnderlineText = false
+            }
         }
 
+        spannableString.setSpan(
+            clickableSpan,
+            startIndex,
+            startIndex + clickableText.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        textView.text = spannableString
+        textView.movementMethod = LinkMovementMethod.getInstance()
     }
 }
