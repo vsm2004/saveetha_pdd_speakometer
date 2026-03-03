@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="nav_selected">#000000</color>       <!-- Black or shadowish -->
     <color name="nav_unselected">#9E9E9E</color>
+    <color name="cyan_main">#06B6D4</color>
 </resources>

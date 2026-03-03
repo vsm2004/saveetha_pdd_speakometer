@@ -94,6 +94,11 @@ speech ability</string>
     <string name="ob3_title">Track progress\nprivately</string>
     <string name="ob3_desc">All data stays on your device.\nStart free today!</string>
     <string name="btn_get_started">Get Started</string>
+    <string name="ready_to_record">Ready to Record</string>
+    <string name="tap_to_start">Tap the mic to start</string>
+    <string name="initial_timer">0:00</string>
+    <string name="duration_label">Duration</string>
+    <string name="privacy_note">Your audio is processed locally on\nyour device for privacy</string>
     <string name="progress_header">Your Progress in last week</string>
     <string name="ob2_desc">See your Speak-o-Meter score\nand actionable tips to improve.</string>
     <string name="record_audio">Record Audio</string>
@@ -112,5 +117,147 @@ speech ability</string>
     <string name="profile">Profile</string>
     <string name="upload_audio">Upload Audio</string>
     <string name="analyze_existing_recording">Analyze existing recording</string>
+    <string name="analyzing_speech">Analyzing your speech…</string>
+    <string name="take_a_moment">This will only take a moment</string>
+    <string name="detecting_filler">Detecting filler words</string>
+    <string name="analyzing_tone">Analyzing tone</string>
+    <string name="calculating_score">Calculating score</string>
+    <string name="recording_in_progress">Recording… Tap to stop</string>
+    <string name="too_short_title">Recording Too Short</string>
+    <string name="too_short_desc">Please record at least 5 seconds of audio. Your current clip is too brief for an accurate analysis.</string>
+    <string name="try_again">Try Again</string>
+    <string name="your_results">Your Results</string>
+    <string name="great_job_analysis">Great job! Here\'s your analysis</string>
+    <string name="issues_detected">Issues Detected</string>
+    <string name="tips_to_improve">Tips to Improve</string>
+    <string name="record_another">Record Another</string>
+    <string name="view_history">View History</string>
+    <string name="score_placeholder">73</string>
+    <string name="max_score">/ 100</string>
+    <string name="score_value">73</string>
+    <string name="score_total">/ 100</string>
+    <string name="title_filler_words">Filler Words</string>
+    <string name="title_hesitation">Hesitation</string>
+    <string name="title_pace_variation">Pace Variation</string>
 
+    <string name="count_filler">12 instances</string>
+    <string name="count_hesitation">5 instances</string>
+    <string name="count_pace">3 instances</string>
+    <string name="severity_low">low</string>
+    <string name="filler_words_title">Filler Words</string>
+    <string name="filler_instances">12 instances</string>
+    <string name="severity_medium">medium</string>
+    <string name="practice_pausing_instead_of_using_umm_or_like">Practice pausing instead of using \'umm\' or \'like\'</string>
+    <string name="today">Today</string>
+    <string name="progress_today">+5</string>
+    <string name="total_score_value">78</string>
+    <string name="track_progress">progress_tracking</string>
+    <string name="this_week">This Week</string>
+    <string name="label_sessions">Sessions</string>
+    <string name="label_avg_score">Avg Score</string>
+    <string name="label_improvement">Improvement</string>
+
+    <string name="value_sessions">5</string>
+    <string name="value_avg_score">63</string>
+    <string name="value_improvement">+20</string>
+    <string name="session_date_placeholder">Today, 2:30 PM</string>
+    <string name="session_duration_placeholder">2:45 duration</string>
+    <string name="session_score_placeholder">73</string>
+    <string name="desc_history_icon">Session History Icon</string>
+    <string name="your_history">Your History</string>
+    <string name="john_travolta">John Travolta</string>
+    <string name="label_username">Username</string>
+    <string name="session_details">Session Details</string>
+    <string name="session_details_title">Session Details</string>
+    <string name="issue_breakdown_header">Issue Breakdown</string>
+    <string name="view_improvement_tips">View Improvement Tips</string>
+    <string name="back_to_history">Back to History</string>
+
+    <string name="label_filler_words">Filler Words</string>
+    <string name="label_hesitation">Hesitation</string>
+    <string name="label_pace_variation">Pace Variation</string>
+
+    <string name="session_full_info">Today, 2:30 PM • 2:45 duration</string>
+    <string name="session_score_value">73</string>
+    <string name="score_denominator">/ 100</string>
+    <string name="count_times_12">12 times</string>
+    <string name="count_times_5">5 times</string>
+    <string name="count_times_3">3 times</string>
+    <string name="issue_breakdown">Issue Breakdown</string>
+    <string name="reduce_filler_words">Reduce Filler Words</string>
+    <string name="learn_to_pause">Learn to pause naturally instead of using \"umm\", \"like\", or \"you know\"</string>
+    <string name="try_practice_exercise">Try Practice Exercise</string>
+    <string name="desc_back_button">Navigate back to session details</string>
+    <string name="title_how_practice">How to Practice</string>
+    <string name="step_1">Record yourself speaking for 2 minutes on any topic</string>
+    <string name="step_2">Count your filler words while listening back</string>
+    <string name="step_3">Practice the same topic again, consciously pausing instead</string>
+    <string name="why_this_matters">Why This Matters</string>
+    <string name="filler_words">Filler words can make you sound less confident…</string>
+    <string name="tips">Count your filler words while listening back</string>
+    <string name="record_yourself_speaking_for_2_minutes_on_any_topic">Record yourself speaking for 2 minutes on any topic</string>
+    <string name="title_practice_phrase">Practice Phrase</string>
+    <string name="content_practice_phrase">\"I believe that effective communication requires clarity and confidence. When we speak with intention, our message resonates more deeply with our audience.\"</string>
+    <string name="footer_practice_phrase">Try saying this without any filler words, using natural pauses instead.</string>
+    <string name="how_to_practice">How to Practice?</string>
+    <string name="exercise_prompt">Describe your favourite hobby and why you enjoy it.Speak for 2 minutes trying to avoid fillers like \'umm\',\'like\' and \'you know\'.Use natural pauses instead.</string>
+    <string name="your_prompt">Your Prompt</string>
+    <string name="exercise_implementation_tip">Take a breath when you need to think</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="label_tip">Tip:</string>
+    <string name="desc_tip_icon">Lightbulb icon for helpful advice</string>
+    <string name="desc_visualizer">Real-time audio wave visualization</string>
+    <!-- Practice Exercise Content -->
+    <string name="focus_filler">Focus: Eliminating \'um\', \'uh\', and \'like\'</string>
+    <string name="prompt_filler">Describe your favorite childhood memory for 60 seconds without
+        using a single filler word.
+    </string>
+    <string name="tip_filler">If you get stuck, embrace the silence. A pause is better than an
+        \'um\'.
+    </string>
+
+    <string name="title_pace">Improve Speaking Pace</string>
+    <string name="focus_pace">Focus: Consistent word-per-minute delivery</string>
+    <string name="prompt_pace">Read a short news article aloud, ensuring you emphasize the commas
+        and periods.
+    </string>
+    <string name="tip_pace">Try tapping your foot lightly to keep a steady rhythm.</string>
+    <string name="focus_hesitation">Focus: Fluidity and confidence</string>
+    <string name="prompt_hesitation">Summarize your last work project. Try to keep the sentences
+        connected and flowing.
+    </string>
+    <string name="tip_hesitation">Take a deep breath before you start a new thought.</string>
+
+    <string name="toast_starting_practice">Starting %s practice…</string>
+    <string name="tap_to_choose">Tap to choose file</string>
+    <string name="file_size_limit">MP3,WAV AND M4A(MAX.5MB SIZE)</string>
+    <string name="submit_for_analysis">Submit For Analysis</string>
+
+    <!-- <string name="desc_back_button">Back to tips</string> -->
+
+    <!-- <string name="exercise_prompt">Describe your favorite childhood memory for 60 seconds without
+        using a single filler word.
+    </string> -->
+
+    <!-- <string name="desc_tip_icon">Tip Icon</string> -->
+
+    <!-- <string name="label_tip">PRO TIP:</string> -->
+
+    <!-- <string name="exercise_implementation_tip">If you get stuck, embrace the silence. A pause is
+        better than an \'um\'.
+    </string> -->
+
+    <!-- <string name="desc_visualizer">Voice Visualizer</string> -->
+
+
+    <!-- <string name="title_hesitation">Reduce Hesitations</string> -->
+    <string name="error_invalid_format">Invalid format. Please upload a speech-only .mp3 file.</string>
+    <string name="error_file_too_large">File too large. Maximum size is 5MB.</string>
+    <string name="error_music_detected">Music detected. Please upload a spoken speech session.</string>
+
+    <string name="file_selected_info">Selected: %1$s (%2$.2f MB)</string>
+    <string name="toast_speech_validated">Speech file validated!</string>
+    <string name="error_file_too_long">File too long. Max 3 minutes allowed.</string>
+    <!-- <string name="file_selected_info">Selected: %1$s (%2$s)</string> -->
 </resources>
+

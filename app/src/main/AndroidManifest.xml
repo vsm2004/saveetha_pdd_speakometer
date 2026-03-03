@@ -13,6 +13,36 @@
         android:theme="@style/Theme.Speakometer"
         tools:targetApi="31">
         <activity
+            android:name=".UploadingAudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PracticeExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PracticeExcerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImprovementTipsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SessionDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnalysisResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TooShortAudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecordedAudioAnalysisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecordingAudioActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomePageActivity"
             android:exported="false" />
         <activity

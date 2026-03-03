@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0B1F">
+
+    <TextView
+        android:id="@+id/tv_history_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/your_history"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_history_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/track_progress"
+        android:textColor="#B3FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_history_header"
+        app:layout_constraintTop_toBottomOf="@id/tv_history_header" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_history_sub">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp">
+
+            <include
+                android:id="@+id/card_summary"
+                layout="@layout/item_history_summary" />
+
+            <include layout="@layout/item_history_session" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" />
+            <include layout="@layout/item_history_session" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" />
+            <include layout="@layout/item_history_session" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1A162D"
+        app:itemIconTint="@null"
+        app:itemTextColor="@color/nav_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu_one" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
