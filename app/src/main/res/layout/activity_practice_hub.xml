@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0B14">
+
+    <ScrollView
+        android:id="@+id/scroll_practice"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="24dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_page_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/practice_title"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_page_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/practice_subtitle"
+                android:textColor="#9CA3AF"
+                android:textSize="16sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_filler_words"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon_filler"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_practice_circle_green"
+                    android:contentDescription="@string/title_filler"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_practice_check"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_filler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/title_filler"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon_filler"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon_filler" />
+
+                <TextView
+                    android:id="@+id/tv_desc_filler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/desc_filler"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_filler"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_filler" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_confidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon_confidence"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_practice_circle_purple"
+                    android:contentDescription="@string/title_confidence"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_practice_play"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_confidence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/title_confidence"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon_confidence"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon_confidence" />
+
+                <TextView
+                    android:id="@+id/tv_desc_confidence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/desc_confidence"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_confidence"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_confidence" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_pace_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon_pace"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_practice_circle_purple"
+                    android:contentDescription="@string/title_pace"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_practice_play"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_pace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/title_pace"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon_pace"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon_pace" />
+
+                <TextView
+                    android:id="@+id/tv_desc_pace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/desc_pace"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_pace"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_pace" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon_art"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_practice_circle_grey"
+                    android:contentDescription="@string/title_art"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_practice_lock_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_art"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/title_art"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon_art"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon_art" />
+
+                <TextView
+                    android:id="@+id/tv_desc_art"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/desc_art"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_art"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_art" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_icon_pres"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_practice_circle_grey"
+                    android:contentDescription="@string/title_pres"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_practice_lock_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_pres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/title_pres"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_icon_pres"
+                    app:layout_constraintTop_toTopOf="@id/iv_icon_pres" />
+
+                <TextView
+                    android:id="@+id/tv_desc_pres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/desc_pres"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_pres"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_pres" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/bg_practice_card_outline"
+                android:padding="24dp">
+
+                <ImageView
+                    android:id="@+id/iv_unlock_lock"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:contentDescription="@string/unlock_all"
+                    android:src="@drawable/ic_practice_lock_pink"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_unlock_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/unlock_all"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_unlock_lock" />
+
+                <TextView
+                    android:id="@+id/tv_unlock_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="@string/unlock_desc"
+                    android:textColor="#9CA3AF"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_unlock_title" />
+
+                <TextView
+                    android:id="@+id/tv_upgrade_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:clickable="true"
+                    android:drawablePadding="8dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/upgrade_now"
+                    android:textColor="#EC4899"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:drawableEndCompat="@drawable/ic_practice_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_unlock_desc" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#121017"
+        app:itemIconTint="@null"
+        app:itemTextColor="@color/nav_item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu_two" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

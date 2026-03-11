@@ -258,6 +258,241 @@ speech ability</string>
     <string name="file_selected_info">Selected: %1$s (%2$.2f MB)</string>
     <string name="toast_speech_validated">Speech file validated!</string>
     <string name="error_file_too_long">File too long. Max 3 minutes allowed.</string>
+    <string name="practice_title">Practice Exercises</string>
+    <string name="practice_subtitle">Improve specific areas of your speech</string>
+    <string name="unlock_all">Unlock All Exercises</string>
+    <string name="upgrade_now">Upgrade Now →</string>
+    <string name="practice_hub_title">Practice Exercises</string>
+    <string name="practice_hub_subtitle">Improve specific areas of your speech</string>
+    <string name="desc_premium_lock">Premium Lock</string>
+    <string name="unlock_all_exercises">Unlock All Exercises</string>
+    <string name="upgrade_now_action">Upgrade Now →</string>
+    <string name="title_filler">Reduce Filler Words</string>
+    <string name="desc_filler">5 min • Completed</string>
+    <string name="title_confidence">Improve Confidence</string>
+    <string name="desc_confidence">7 min • Not started</string>
+    <string name="desc_pace">6 min • Not started</string>
+    <string name="title_art">Advanced Articulation</string>
+    <string name="desc_art">10 min • Premium</string>
+    <string name="title_pres">Presentation Skills</string>
+    <string name="desc_pres">12 min • Premium</string>
+    <string name="unlock_desc">Get access to advanced practice\nexercises with Premium</string>
+    <string name="profile_avatar_initial">A</string>
+    <string name="profile_name">Alex Johnson</string>
+    <string name="profile_email">alex@example.com</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <!-- Stats -->
+    <string name="stats_sessions_count">24</string>
+    <string name="stats_sessions_label">Sessions</string>
+    <string name="stats_score_count">68</string>
+    <string name="stats_score_label">Avg Score</string>
+    <string name="stats_improvement_count">+32</string>
+    <string name="stats_improvement_label">Improved</string>
+
+    <!-- Menu Items -->
+    <string name="menu_stats_title">Progress Stats</string>
+    <string name="menu_stats_desc">View detailed analytics</string>
+    <string name="menu_achieve_title">Achievements</string>
+    <string name="menu_achieve_desc">3 badges earned</string>
+    <string name="menu_settings_title">Settings</string>
+    <string name="menu_settings_desc">Preferences &amp; privacy</string>
+
+    <!-- Plan Card -->
+    <string name="plan_free_title">Free Plan</string>
+    <string name="plan_free_desc">Upgrade to Premium for advanced\nfeatures</string>
+    <string name="see_premium_plans">See Premium Plans</string>
+
+    <!-- Accessibility Descriptions -->
+    <string name="desc_edit_icon">Edit profile icon</string>
+    <string name="desc_stats_icon">Statistics icon</string>
+    <string name="desc_badge_icon">Achievements badge icon</string>
+    <string name="desc_settings_icon">Settings gear icon</string>
+    <string name="desc_arrow_right">Arrow pointing right</string>
     <!-- <string name="file_selected_info">Selected: %1$s (%2$s)</string> -->
-</resources>
+
+    <!-- <string name="title_pace">Pace Control</string> -->
+
+    <!-- <string name="upgrade_now">Upgrade Now</string> -->
+    <!-- Edit Profile Screen -->
+    <string name="update_personal_info">Update your personal information</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_accent_preference">Accent Preference</string>
+    <string name="hint_indian_english">Indian English</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
+    <!-- Accessibility Labels -->
+    <string name="desc_back">Back to profile</string>
+    <string name="desc_profile_initial">Profile Initial</string>
+    <string name="desc_camera">Change profile picture</string>
+    <string name="desc_dropdown">Select preference</string>
+    <string name="profile_initial_a">A</string>
+    <string name="hint_full_name">Alex Johnson</string>
+
+    <!-- <string name="label_email">Email Address</string> -->
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_subtitle">Manage your preferences</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_desc">Practice reminders</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_dark_mode_desc">Always on</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_privacy_desc">View our policy</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="settings_logout_desc">Sign out of your account</string>
+    <string name="settings_version">Speak-o-Meter v1.0.0</string>
+    <!-- Premium Screen -->
+    <string name="premium_unlock_title">Unlock Premium</string>
+    <string name="premium_unlock_subtitle">Take your speech skills to the next level</string>
+    <string name="premium_features_title">Premium Features</string>
+    <string name="premium_feature_1">Detailed analytics &amp; progress reports</string>
+    <string name="premium_feature_2">Advanced practice exercises</string>
+    <string name="premium_feature_3">Unlimited session history</string>
+    <string name="premium_feature_4">PDF report generation</string>
+    <string name="premium_feature_5">Weekly progress summaries</string>
+    <string name="premium_feature_6">Exclusive badges &amp; achievements</string>
+    <string name="premium_feature_7">Priority support</string>
+    <string name="premium_feature_8">Ad-free experience</string>
+    <string name="premium_btn_see_plans">See Plans &amp; Pricing</string>
+    <string name="premium_btn_maybe_later">Maybe Later</string>
+    <string name="premium_footer">7-day free trial • Cancel anytime</string>
+    <string name="desc_premium_star">Premium Star Icon</string>
+    <!-- Free Trial Screen -->
+    <string name="ft_title">Choose Your Plan</string>
+    <string name="ft_subtitle">Select the plan that works best for you</string>
+    <string name="ft_plan_yearly">Yearly</string>
+    <string name="ft_best_value">BEST VALUE</string>
+    <string name="ft_save_amount">Save ₹1,189</string>
+    <string name="ft_price_yearly">₹1,199</string>
+    <string name="ft_per_year">/year</string>
+    <string name="ft_billed_annually">₹100/month billed annually</string>
+    <string name="ft_plan_monthly">Monthly</string>
+    <string name="ft_flexible_billing">Flexible monthly billing</string>
+    <string name="ft_price_monthly">₹199</string>
+    <string name="ft_per_month">/month</string>
+    <string name="ft_checkbox_trial">Start with 7-day free trial (cancel anytime before trial ends)</string>
+    <string name="ft_btn_start_trial">Start 7-Day Free Trial</string>
+    <string name="ft_footer_disclaimer">You won\'t be charged until the trial ends. Cancel\nanytime.</string>
+    <!-- Premium Pack Selection Screen -->
+    <string name="pack_btn_subscribe">Subscribe Now</string>
+    <string name="pack_footer_disclaimer">Secure payment via Google Play. Cancel anytime.</string>
+    <!-- Payment Checkout Screen -->
+    <string name="payment_title">Checkout</string>
+    <string name="payment_due_today">Total due today</string>
+    <string name="payment_after_trial">After 7 days</string>
+    <string name="payment_method_title">Payment Method</string>
+    <string name="payment_credit_card">Credit / Debit Card</string>
+    <string name="payment_card_number">Card Number</string>
+    <string name="payment_card_hint">0000 0000 0000 0000</string>
+    <string name="payment_expiry">Expiry</string>
+    <string name="payment_expiry_hint">MM/YY</string>
+    <string name="payment_cvc">CVC</string>
+    <string name="payment_cvc_hint">123</string>
+    <string name="payment_secure_ssl">Secure SSL Encryption</string>
+    <string name="payment_btn_submit">Submit The Details</string>
+    <string name="payment_zero_due">₹0</string>
+    <string name="payment_default_yearly_price">₹1199/year</string>
+    <string name="desc_secure_lock">Secure Connection Icon</string>
+    <string name="desc_credit_card">Credit Card Icon</string>
+    <!-- Formatting strings with placeholders -->
+    <!-- %1$s will be replaced by the currency and %2$s by the amount -->
+    <string name="payment_price_format">%1$s%2$s</string>
+    <string name="payment_price_suffix_format">%1$s%2$s%3$s</string>
+
+    <!-- Labels -->
+    <string name="payment_plan_label">Plan</string>
+    <!-- Welcome to Premium Screen -->
+    <string name="welcome_title">Welcome to\nPremium!</string>
+    <string name="welcome_subtitle">You now have access to all premium\nfeatures</string>
+    <string name="welcome_plan_label">Plan</string>
+    <string name="welcome_amount_label">Amount</string>
+    <string name="welcome_trial_label">Trial ends</string>
+    <string name="welcome_billing_label">Next billing</string>
+    <string name="welcome_plan_value">Yearly Premium</string>
+    <string name="welcome_amount_value">₹1,199/year</string>
+    <string name="welcome_trial_value">Dec 28, 2024</string>
+    <string name="welcome_billing_value">Dec 28, 2025</string>
+    <string name="welcome_btn_explore">Explore Premium Features</string>
+    <string name="welcome_trial_toast">You can cancel anytime in the next 7 days. If not, you will
+        be billed after the trial period.
+    </string>
+    <string name="price_yearly_value">₹1199/year</string>
+    <string name="price_monthly_value">₹199/month</string>
+    <string name="status_activated">Activated</string>
+
+    <!-- Premium Analytics Screen -->
+    <string name="analytics_title">Premium\nAnalytics</string>
+    <string name="analytics_subtitle">Your detailed progress</string>
+    <string name="analytics_tag_premium">PREMIUM</string>
+    <string name="analytics_weekly_progress">Weekly Progress</string>
+    <string name="analytics_improvement_value">+12\n%</string>
+    <string name="analytics_improvement_label">Improvement this week</string>
+    <string name="analytics_day_mon">Mon</string>
+    <string name="analytics_day_tue">Tue</string>
+    <string name="analytics_day_wed">Wed</string>
+    <string name="analytics_day_thu">Thu</string>
+    <string name="analytics_day_fri">Fri</string>
+    <string name="analytics_day_sat">Sat</string>
+    <string name="analytics_day_sun">Sun</string>
+    <string name="analytics_filler_words">Filler Words</string>
+    <string name="analytics_filler_val">45 %</string>
+    <string name="analytics_hesitation">Hesitation</string>
+    <string name="analytics_hesitation_val">30 %</string>
+    <string name="analytics_pace">Pace</string>
+    <string name="analytics_pace_val">15 %</string>
+    <string name="analytics_other">Other</string>
+    <string name="analytics_other_val">10 %</string>
+    <string name="analytics_generate_pdf">Generate PDF</string>
+    <string name="analytics_view_achievements">View achievements</string>
+    <string name="analytics_back_to_home">Back to Home</string>
+
+    <!-- Achievement Unlocked Screen -->
+    <string name="achievement_title">Achievement\nUnlocked!</string>
+    <string name="achievement_badge_name">Filler Fighter</string>
+    <string name="achievement_description">You\'ve reduced filler words by 50% in\nyour last 5 sessions. Keep up the\ngreat work!</string>
+    <string name="achievement_stat_1_val">5</string>
+    <string name="achievement_stat_2_val">50%</string>
+    <string name="achievement_stat_3_val">+100</string>
+    <string name="achievement_btn_awesome">Awesome!</string>
+    <string name="achievement_badge_icon">Achievement badge icon</string>
+
+    <!-- Premium Expiry Screen -->
+    <string name="expiry_alert_msg">Your Premium subscription\nwill expire in 30 days.\nRenew now to keep all\nyour premium features.</string>
+    <string name="expiry_date_label">Expires on:</string>
+    <string name="expiry_date_val">Dec 28, 2024</string>
+    <string name="expiry_lose_title">What You\'ll Lose</string>
+    <string name="expiry_feature_1">Detailed analytics &amp; progress\nreports</string>
+    <string name="expiry_feature_2">Advanced practice exercises</string>
+    <string name="expiry_feature_3">Unlimited session history</string>
+    <string name="expiry_feature_4">PDF report generation</string>
+    <string name="expiry_feature_5">Achievement badges</string>
+    <string name="expiry_btn_renew">Renew Premium Now</string>
+    <string name="expiry_btn_later">Maybe Later</string>
+
+    <!-- Offline Reminder Screen -->
+    <string name="offline_title">Offline Mode Active</string>
+    <string name="offline_msg">You\'re currently offline.\nPlease check your internet connection\nAll your data is processed and\nstored locally on your device.</string>
+    <string name="offline_feature_1">✓ Record and analyze speech</string>
+    <string name="offline_feature_2">✓ View history and progress</string>
+    <string name="offline_feature_3">✓ Practice exercises</string>
+    <string name="offline_feature_4">✓ All features available</string>
+    <string name="offline_btn_got_it">Got It</string>
+    <string name="offline_footer_msg">Premium sync requires internet connection</string>
+    
+    <!-- Feedback Screen -->
+    <string name="feedback_title">We\'d Love Your\nFeedback</string>
+    <string name="feedback_subtitle">Help us improve Speak-o-Meter</string>
+    <string name="feedback_card_title">How can we improve?</string>
+    <string name="feedback_hint">Share your thoughts,\nsuggestions, or report issues...</string>
+    <string name="feedback_footer">Your feedback helps us make Speak-o-Meter\nbetter for everyone</string>
+    <string name="feedback_btn_submit">Submit Feedback</string>
+    <string name="feedback_btn_cancel">Cancel</string>
+    <string name="back_button">Back button</string>
+
+</resources><!-- <string name="welcome_amount_label">Amount Paid</string> -->
+
+    <!-- <string name="welcome_trial_label">Trial Ends</string> -->
+
 

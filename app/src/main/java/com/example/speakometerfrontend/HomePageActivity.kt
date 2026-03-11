@@ -18,7 +18,7 @@ class HomePageActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.itemIconTintList = null // Allows original multi-color PNGs to show
 
-        // 2. Setup Action Cards with localized string binding
+        // 2. Setup Action Cards (Recording and Upload)
         setupActionCards()
 
         // 3. Setup Bottom Navigation Listener
@@ -26,9 +26,7 @@ class HomePageActivity : AppCompatActivity() {
 
         // 4. Profile Interaction
         findViewById<TextView>(R.id.tv_profile_initial).setOnClickListener {
-            // Future: Navigate to Profile Screen
-            // val intent = Intent(this, ProfilePageActivity::class.java)
-            // startActivity(intent)
+            //checkNetworkAndNavigate(Intent(this, ProfilePageActivity::class.java))
         }
     }
 
@@ -36,17 +34,16 @@ class HomePageActivity : AppCompatActivity() {
         val cvRecord = findViewById<CardView>(R.id.cv_record)
         val cvUpload = findViewById<CardView>(R.id.cv_upload)
 
-        // NAVIGATION TO RECORDING SCREEN (Slide #11)
+        // NAVIGATION TO RECORDING SCREEN
         cvRecord.setOnClickListener {
             val intent = Intent(this, RecordingAudioActivity::class.java)
-            startActivity(intent)
+            checkNetworkAndNavigate(intent)
         }
 
-        // NAVIGATION TO UPLOAD SCREEN (Slide #XX)
-        // Replaced the Toast with an Intent to open UploadingAudioActivity
+        // NAVIGATION TO UPLOAD SCREEN
         cvUpload.setOnClickListener {
             val intent = Intent(this, UploadingAudioActivity::class.java)
-            startActivity(intent)
+            checkNetworkAndNavigate(intent)
         }
     }
 
@@ -55,19 +52,40 @@ class HomePageActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> true
                 R.id.nav_history -> {
-                    Toast.makeText(this, "History", Toast.LENGTH_SHORT).show()
+                    checkNetworkAndNavigate(null, "History")
                     true
                 }
                 R.id.nav_practice -> {
-                    Toast.makeText(this, "Practice", Toast.LENGTH_SHORT).show()
+                    // Navigate to PracticeHubActivity with network check
+                    val intent = Intent(this, PracticeHubActivity::class.java)
+                    checkNetworkAndNavigate(intent)
                     true
                 }
                 R.id.nav_profile -> {
-                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
+                    checkNetworkAndNavigate(null, "Profile")
                     true
                 }
                 else -> false
             }
+        }
+    }
+
+    /**
+     * Helper function to centralize Network Checking logic.
+     * If online: starts the provided intent.
+     * If offline: redirects to OfflineReminderActivity.
+     */
+    private fun checkNetworkAndNavigate(targetIntent: Intent?, debugToast: String? = null) {
+        if (NetworkUtils.isInternetAvailable(this)) {
+            if (targetIntent != null) {
+                startActivity(targetIntent)
+            } else if (debugToast != null) {
+                Toast.makeText(this, debugToast, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // REDIRECT TO OFFLINE SCREEN
+            val offlineIntent = Intent(this, OfflineReminderActivity::class.java)
+            startActivity(offlineIntent)
         }
     }
 }

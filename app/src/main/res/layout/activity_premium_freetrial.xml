@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#0A0618">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- Back Arrow -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/desc_back"
+            android:src="@drawable/ic_back_arrow_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ft_title"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_back" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/ft_subtitle"
+            android:textColor="#9E9E9E"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <!-- Yearly Plan Card (Changed to Normal/Unselected style) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_plan_yearly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_plan_card_unselected"
+            android:padding="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_yearly_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ft_plan_yearly"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Best Value Chip (Kept as requested) -->
+            <TextView
+                android:id="@+id/tv_best_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/bg_best_value_chip"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/ft_best_value"
+                android:textColor="#06B6D4"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_yearly_label"
+                app:layout_constraintStart_toEndOf="@id/tv_yearly_label"
+                app:layout_constraintTop_toTopOf="@id/tv_yearly_label" />
+
+            <!-- Radio Icon (Changed to Unselected) -->
+            <ImageView
+                android:id="@+id/iv_radio_yearly"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_radio_unselected"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_yearly_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/ft_save_amount"
+                android:textColor="#9E9E9E"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_yearly_label" />
+
+            <TextView
+                android:id="@+id/tv_yearly_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/ft_price_yearly"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_yearly_save" />
+
+            <TextView
+                android:id="@+id/tv_yearly_per"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/ft_per_year"
+                android:textColor="#9E9E9E"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_yearly_price"
+                app:layout_constraintStart_toEndOf="@id/tv_yearly_price" />
+
+            <TextView
+                android:id="@+id/tv_yearly_billed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/ft_billed_annually"
+                android:textColor="#9E9E9E"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_yearly_price" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Monthly Plan Card (Unselected) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_plan_monthly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_plan_card_unselected"
+            android:padding="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/cl_plan_yearly"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tv_monthly_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ft_plan_monthly"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Radio Icon -->
+            <ImageView
+                android:id="@+id/iv_radio_monthly"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_radio_unselected"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_monthly_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/ft_flexible_billing"
+                android:textColor="#9E9E9E"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_monthly_label" />
+
+            <TextView
+                android:id="@+id/tv_monthly_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/ft_price_monthly"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_monthly_desc" />
+
+            <TextView
+                android:id="@+id/tv_monthly_per"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/ft_per_month"
+                android:textColor="#9E9E9E"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_monthly_price"
+                app:layout_constraintStart_toEndOf="@id/tv_monthly_price" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_plan_monthly"
+            app:layout_constraintBottom_toTopOf="@id/cb_trial"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_weight="1" />
+
+        <!-- Trial Checkbox -->
+        <CheckBox
+            android:id="@+id/cb_trial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:buttonTint="#0088FF"
+            android:checked="true"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/ft_checkbox_trial"
+            android:textColor="#C0C0C0"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_start_trial"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Start Trial Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_start_trial"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_gradient_indigo"
+            android:text="@string/ft_btn_start_trial"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_footer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_footer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/ft_footer_disclaimer"
+            android:textColor="#606060"
+            android:textSize="11sp"
+            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

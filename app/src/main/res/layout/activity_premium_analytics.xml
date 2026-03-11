@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0618"
+    tools:context=".PremiumAnalyticsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="100dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvAnalyticsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/analytics_title"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- PREMIUM Tag -->
+            <TextView
+                android:id="@+id/tvPremiumTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_premium_tag_purple"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/analytics_tag_premium"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/tvAnalyticsSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/analytics_subtitle"
+                android:textColor="#9E9E9E"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAnalyticsTitle" />
+
+            <!-- Weekly Progress Card -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clWeeklyProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_plan_card_unselected"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tvAnalyticsSubtitle">
+
+                <TextView
+                    android:id="@+id/tvWeeklyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/analytics_weekly_progress"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivChartIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_line_chart_cyan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvImprovementValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/analytics_improvement_value"
+                    android:textColor="#06B6D4"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivChartIcon" />
+
+                <TextView
+                    android:id="@+id/tvImprovementLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/analytics_improvement_label"
+                    android:textColor="#B3B3B3"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvImprovementValue" />
+
+                <LinearLayout
+                    android:id="@+id/llBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="7"
+                    app:layout_constraintTop_toBottomOf="@id/tvImprovementLabel">
+
+                    <!-- Monday (Optimized FrameLayout) -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/analytics_day_mon"
+                            android:textColor="#B3B3B3"
+                            android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <!-- Repeat similar logic for Tue-Sun (removed nested LinearLayouts) -->
+                    <FrameLayout android:layout_width="0dp" android:layout_height="80dp" android:layout_gravity="bottom" android:layout_weight="1" android:layout_marginEnd="6dp" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_tue" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <FrameLayout android:layout_width="0dp" android:layout_height="95dp" android:layout_gravity="bottom" android:layout_weight="1" android:layout_marginEnd="6dp" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_wed" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <FrameLayout android:layout_width="0dp" android:layout_height="105dp" android:layout_gravity="bottom" android:layout_weight="1" android:layout_marginEnd="6dp" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_thu" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <FrameLayout android:layout_width="0dp" android:layout_height="115dp" android:layout_gravity="bottom" android:layout_weight="1" android:layout_marginEnd="6dp" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_fri" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <FrameLayout android:layout_width="0dp" android:layout_height="100dp" android:layout_gravity="bottom" android:layout_weight="1" android:layout_marginEnd="6dp" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_sat" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+
+                    <FrameLayout android:layout_width="0dp" android:layout_height="115dp" android:layout_gravity="bottom" android:layout_weight="1" android:background="@drawable/bg_weekly_progress_bar">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="8dp" android:text="@string/analytics_day_sun" android:textColor="#B3B3B3" android:textSize="12sp" />
+                    </FrameLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Breakdown Card (Fixed Overlap using weights) -->
+            <LinearLayout
+                android:id="@+id/llBreakdownCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_plan_card_unselected"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/clWeeklyProgress">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="end"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_bar_chart_purple_small"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Row: Filler Words (Example of overlap fix) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/analytics_filler_words"
+                        android:textColor="#E0E0E0"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/analytics_filler_val"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:progressDrawable="@drawable/custom_horizontal_progressbar_grey"
+                    android:progress="0"/>
+
+                <!-- Pace (Has cyan progress) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/analytics_pace"
+                        android:textColor="#E0E0E0"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/analytics_pace_val"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="8dp"
+                    android:progressDrawable="@drawable/custom_horizontal_progressbar"
+                    android:progress="15"/>
+
+                <!-- Add other rows here following the same pattern -->
+
+            </LinearLayout>
+
+            <!-- Square Cards Row -->
+            <LinearLayout
+                android:id="@+id/llSquareCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/llBreakdownCard">
+
+                <!-- Generate PDF Card (Redundant FrameLayout removed) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_square_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:padding="16dp"
+                        android:background="@drawable/bg_circle_icon_pdf"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_generate_pdf_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/analytics_generate_pdf"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+                <!-- View Achievements Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_square_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:padding="16dp"
+                        android:background="@drawable/bg_circle_icon_achievements"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_badge_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/analytics_view_achievements"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnBackToHome"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="44dp"
+                android:background="@drawable/bg_button_gradient_indigo"
+                android:text="@string/analytics_back_to_home"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/llSquareCards" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0618"
+    android:padding="24dp">
+
+    <!-- Back Arrow -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/desc_back"
+        android:src="@drawable/ic_back_arrow_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title and Subtitle -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/settings_title"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/settings_subtitle"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!-- Settings Items Container -->
+    <LinearLayout
+        android:id="@+id/ll_settings_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Notifications -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_settings_card"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_icon_notif"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_settings_icon_purple"
+                android:padding="12dp"
+                android:contentDescription="@string/settings_notifications"
+                android:src="@drawable/ic_settings_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_notif_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/settings_notifications"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_icon_notif"
+                app:layout_constraintTop_toTopOf="@id/iv_icon_notif"
+                app:layout_constraintBottom_toTopOf="@id/tv_notif_desc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_notif_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/settings_notifications_desc"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_notif_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_notif_title"
+                app:layout_constraintBottom_toBottomOf="@id/iv_icon_notif" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/CustomSwitchTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Dark Mode -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dark_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_settings_card"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_icon_dark"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_settings_icon_blue"
+                android:padding="12dp"
+                android:contentDescription="@string/settings_dark_mode"
+                android:src="@drawable/ic_settings_dark_mode"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_dark_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/settings_dark_mode"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_icon_dark"
+                app:layout_constraintTop_toTopOf="@id/iv_icon_dark"
+                app:layout_constraintBottom_toTopOf="@id/tv_dark_desc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_dark_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/settings_dark_mode_desc"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_dark_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_dark_title"
+                app:layout_constraintBottom_toBottomOf="@id/iv_icon_dark" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/CustomSwitchTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Privacy Policy -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_settings_card"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_icon_privacy"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_settings_icon_cyan"
+                android:padding="12dp"
+                android:contentDescription="@string/settings_privacy"
+                android:src="@drawable/ic_settings_privacy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_privacy_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/settings_privacy"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_icon_privacy"
+                app:layout_constraintTop_toTopOf="@id/iv_icon_privacy"
+                app:layout_constraintBottom_toTopOf="@id/tv_privacy_desc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_privacy_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/settings_privacy_desc"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_privacy_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_privacy_title"
+                app:layout_constraintBottom_toBottomOf="@id/iv_icon_privacy" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Log Out -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_settings_card"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_icon_logout"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_settings_icon_red"
+                android:padding="12dp"
+                android:contentDescription="@string/settings_logout"
+                android:src="@drawable/ic_settings_logout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_logout_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/settings_logout"
+                android:textColor="#F43F5E"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_icon_logout"
+                app:layout_constraintTop_toTopOf="@id/iv_icon_logout"
+                app:layout_constraintBottom_toTopOf="@id/tv_logout_desc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_logout_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/settings_logout_desc"
+                android:textColor="#9CA3AF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_logout_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_logout_title"
+                app:layout_constraintBottom_toBottomOf="@id/iv_icon_logout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_version"
+            android:textColor="#606060"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_made_with"
+            android:textColor="#606060"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

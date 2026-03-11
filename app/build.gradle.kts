@@ -59,6 +59,8 @@ dependencies {
     // Third-party and specialized libraries
     implementation(libs.circleimageview)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.material.v1110)
+    implementation(libs.checkout)
 
     // Testing
     testImplementation(libs.junit)

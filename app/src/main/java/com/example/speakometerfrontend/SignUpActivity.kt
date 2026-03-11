@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
             if (validateInput()) {
                 Toast.makeText(this, "Account Creation Successful!", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this, PermissionActivity::class.java)
+                val intent = Intent(this, PermissionsActivity::class.java)
                 startActivity(intent)
                 // Proceed to next slide logic
             }

@@ -20,5 +20,11 @@
             <item name="android:gravity">center_vertical</item>
         </style>
     </resources>
+    <!-- Add this inside your resources tag -->
+    <style name="CustomSwitchTheme">
+        <item name="colorControlActivated">#06B6D4</item>
+        <item name="colorSwitchThumbNormal">#FFFFFF</item>
+        <item name="android:colorForeground">#9CA3AF</item>
+    </style>
 
 </resources>

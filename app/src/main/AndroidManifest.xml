@@ -2,6 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +22,51 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Speakometer"
         tools:targetApi="31">
+        <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OfflineRemainderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OfflineActivityRemainder"
+            android:exported="false" />
+        <activity
+            android:name=".NetworkUtils"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumExpiryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumViewAchievementsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumAnalyticsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumAccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WelcomePremiumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FreeTrialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumPackSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PracticeHubActivity"
+            android:exported="false" />
         <activity
             android:name=".UploadingAudioActivity"
             android:exported="false" />
