@@ -13,6 +13,15 @@ import androidx.appcompat.widget.AppCompatButton
 import java.io.File
 import java.io.FileOutputStream
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import android.content.Context
+import android.widget.FrameLayout
+import android.widget.TextView
+import com.example.speakometerfrontend.network.VoiceApiClient
+import androidx.core.content.FileProvider
 
 class PremiumAnalyticsActivity : AppCompatActivity() {
 
@@ -52,8 +61,72 @@ class PremiumAnalyticsActivity : AppCompatActivity() {
 
         // 5. Interactive UI Element
         ivChartIcon.setOnClickListener {
-            Toast.makeText(this, "Weekly trend: Up by 12% this week!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Weekly trend dynamically tracking your metrics!", Toast.LENGTH_LONG).show()
         }
+
+        // 6. Fetch Real Stats
+        val prefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userId = prefs.getInt("USER_ID", -1)
+
+        if (userId != -1) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val response = VoiceApiClient.analysisService.getSessions(userId)
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            val data = response.body()
+                            if (data != null && data.sessions.isNotEmpty()) {
+                                updateDynamicAnalytics(data.sessions)
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Ignore, keep static defaults
+                }
+            }
+        }
+    }
+
+    private var userSessions: List<com.example.speakometerfrontend.network.SessionData> = emptyList()
+
+    private fun updateDynamicAnalytics(sessions: List<com.example.speakometerfrontend.network.SessionData>) {
+        if (sessions.isEmpty()) return
+        userSessions = sessions
+
+        // 1. Improvement Calculation
+        val avg = sessions.map { it.score }.average()
+        val lastScore = sessions.first().score
+        val improved = lastScore - avg.toInt()
+        
+        val tvImprovementValue = findViewById<TextView>(R.id.tvImprovementValue)
+        tvImprovementValue.text = if (improved >= 0) "+$improved%" else "$improved%"
+
+        // 2. Weekly Bar Chart Scaling (Last 7 Sessions)
+        val recentSessions = sessions.take(7).reversed()
+        val bars = listOf(
+            R.id.bar_mon, R.id.bar_tue, R.id.bar_wed, 
+            R.id.bar_thu, R.id.bar_fri, R.id.bar_sat, R.id.bar_sun
+        )
+        
+        for ((index, session) in recentSessions.withIndex()) {
+            if (index < bars.size) {
+                val barLayout = findViewById<FrameLayout>(bars[index])
+                val heightInDp = session.score + 20
+                val scale = resources.displayMetrics.density
+                val pixels = (heightInDp * scale + 0.5f).toInt()
+                val params = barLayout.layoutParams
+                params.height = pixels
+                barLayout.layoutParams = params
+                barLayout.alpha = 1.0f
+            }
+        }
+
+        // 3. Breakdown Updates
+        val totalFillers = sessions.sumOf { it.fillersCount }
+        val avgScore = avg.toInt()
+
+        findViewById<TextView>(R.id.tv_fillers_val).text = totalFillers.toString()
+        findViewById<TextView>(R.id.tv_pace_val).text = avgScore.toString()
     }
 
     private fun generateSpeechReport() {
@@ -84,16 +157,23 @@ class PremiumAnalyticsActivity : AppCompatActivity() {
         val canvas1 = page1.canvas
 
         canvas1.drawText("Speakometer: Session Performance Report", 50f, 60f, titlePaint)
-        canvas1.drawText("Overview of your latest speech metrics", 50f, 90f, bodyPaint)
+        
+        val totalSessions = userSessions.size
+        val avgScore = if (userSessions.isNotEmpty()) userSessions.map { it.score }.average().toInt() else 0
+        val lastScore = if (userSessions.isNotEmpty()) userSessions.first().score else 0
+        
+        canvas1.drawText("Personalized overview for your $totalSessions recorded sessions", 50f, 90f, bodyPaint)
 
-        // Draw a simple bar chart visual
+        // Draw a simple bar chart visual using actual data
         accentPaint.color = "#06B6D4".toColorInt()
-        canvas1.drawRect(50f, 150f, 150f, 400f, accentPaint) // Bar 1
-        canvas1.drawText("Pace: 85", 60f, 420f, bodyPaint)
+        val paceHeight = 150f + (100 - avgScore) * 2.5f
+        canvas1.drawRect(50f, paceHeight, 150f, 400f, accentPaint) 
+        canvas1.drawText("Avg Pace: $avgScore", 60f, 420f, bodyPaint)
 
         accentPaint.color = "#8A4DFF".toColorInt()
-        canvas1.drawRect(180f, 250f, 280f, 400f, accentPaint) // Bar 2
-        canvas1.drawText("Confidence: High", 170f, 420f, bodyPaint)
+        val latestHeight = 150f + (100 - lastScore) * 2.5f
+        canvas1.drawRect(180f, latestHeight, 280f, 400f, accentPaint)
+        canvas1.drawText("Latest: $lastScore", 190f, 420f, bodyPaint)
 
         pdfDocument.finishPage(page1)
 
@@ -103,15 +183,21 @@ class PremiumAnalyticsActivity : AppCompatActivity() {
         val canvas2 = page2.canvas
 
         canvas2.drawText("Comparison & Improvement", 50f, 60f, subTitlePaint)
-        canvas2.drawText("Magnitude of change vs. last session:", 50f, 100f, bodyPaint)
+        canvas2.drawText("Magnitude of change vs. your average performance:", 50f, 100f, bodyPaint)
+
+        val improvement = lastScore - avgScore
+        val fillerCount = if (userSessions.isNotEmpty()) userSessions.first().fillersCount else 0
 
         // Positive Improvement Logic
-        bodyPaint.color = "#2E7D32".toColorInt() // Dark Green
-        canvas2.drawText("Fillers: -15% (Significant Improvement)", 70f, 140f, bodyPaint)
-        canvas2.drawText("Pauses: +10% (Better flow control)", 70f, 170f, bodyPaint)
-        canvas2.drawText("Confidence: +12% (Steady Growth)", 70f, 200f, bodyPaint)
-
+        bodyPaint.color = if (improvement >= 0) "#2E7D32".toColorInt() else "#C62828".toColorInt()
+        canvas2.drawText("Latest Score: $lastScore (${if (improvement >= 0) "+" else ""}$improvement change)", 70f, 140f, bodyPaint)
+        
+        bodyPaint.color = if (fillerCount < 3) "#2E7D32".toColorInt() else "#C62828".toColorInt()
+        canvas2.drawText("Fillers Detected: $fillerCount (${if (fillerCount < 3) "Excellent" else "Needs Attention"})", 70f, 170f, bodyPaint)
+        
         bodyPaint.color = Color.BLACK
+        canvas2.drawText("Confidence Index: ${if (lastScore > 75) "High" else if (lastScore > 50) "Medium" else "Low"}", 70f, 200f, bodyPaint)
+
         pdfDocument.finishPage(page2)
 
         // --- PAGE 3: COACH'S NOTE & TIPS ---
@@ -119,21 +205,24 @@ class PremiumAnalyticsActivity : AppCompatActivity() {
         val page3 = pdfDocument.startPage(pageInfo3)
         val canvas3 = page3.canvas
 
-        canvas3.drawText("Direct Note from your Coach", 50f, 60f, subTitlePaint)
+        canvas3.drawText("Direct Note from your AI Coach", 50f, 60f, subTitlePaint)
 
-        val coachNote = """
-            Analysis: You are speaking clearly, but you tend to rush 
-            when answering difficult questions. This is where your 
-            fillers (08) appear.
+        val coachNote = if (userSessions.isEmpty()) {
+            "You haven't completed any sessions yet! Use the 'Record' feature to start tracking your progress."
+        } else {
+            """
+            Analysis: Your average score is $avgScore. In your latest session, 
+            you achieved $lastScore with $fillerCount filler words.
             
-            Improvement Tips:
-            1. Breathe: Take a deep breath before starting a sentence.
-            2. Pause: Use 2-second silences to emphasize points.
-            3. Preparation: Review technical vocabulary daily.
+            Personalized Tips:
+            1. ${if (fillerCount > 3) "Focus on reducing 'uh' and 'um' to sound more professional." else "Great job keeping filler words low!"}
+            2. ${if (avgScore < 60) "Try speaking slightly slower to improve clarity." else "Your speaking pace is well-balanced."}
+            3. Preparation: Review your transcriptions to identify recurring patterns.
             
-            Conclusion: You have improved by 12% this week. 
-            Keep up the celebration streak!
-        """.trimIndent()
+            Conclusion: You have ${if (improvement >= 0) "improved" else "declined"} by ${Math.abs(improvement)} points in your latest attempt. 
+            Keep practicing daily!
+            """.trimIndent()
+        }
 
         var yPos = 120f
         for (line in coachNote.split("\n")) {
@@ -149,7 +238,15 @@ class PremiumAnalyticsActivity : AppCompatActivity() {
 
         try {
             pdfDocument.writeTo(FileOutputStream(filePath))
-            Toast.makeText(this, "PDF Downloaded to Documents folder", Toast.LENGTH_LONG).show()
+            
+            // Launch PDF viewer using FileProvider
+            val uri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", filePath)
+            val pdfIntent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/pdf")
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NO_HISTORY
+            }
+            startActivity(Intent.createChooser(pdfIntent, "Open PDF"))
+            
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Failed to generate PDF: ${e.message}", Toast.LENGTH_SHORT).show()

@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cyan_main">#06B6D4</color>
     <color name="nav_selected">#000000</color>       <!-- Black or shadowish -->
     <color name="nav_unselected">#9E9E9E</color>
-    <color name="cyan_main">#06B6D4</color>
     
     <!-- Premium Access Screen Colors -->
     <color name="premium_bg">#0D0B14</color>

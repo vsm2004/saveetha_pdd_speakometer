@@ -38,6 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_exercise_title" />
 
+    <!-- === PROMPT VIEW (shown when NOT completed) === -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_prompt"
         android:layout_width="match_parent"
@@ -116,6 +117,7 @@
         android:src="@drawable/wave_graphics"
         app:layout_constraintTop_toBottomOf="@id/card_prompt" />
 
+    <!-- Start Recording button (shown when NOT completed) -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_start_recording"
         android:layout_width="match_parent"
@@ -133,4 +135,117 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <!-- === COMPLETED RESULTS VIEW (hidden by default, shown when completed) === -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/card_outline_bg"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_exercise_meta">
+
+        <!-- Completed badge -->
+        <TextView
+            android:id="@+id/tv_completed_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✅ Exercise Completed"
+            android:textColor="#4ADE80"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_practice_card_outline"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Last score -->
+        <TextView
+            android:id="@+id/tv_last_score_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Your Last Score"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_completed_badge" />
+
+        <TextView
+            android:id="@+id/tv_last_score_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="—"
+            android:textColor="#06B6D4"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_last_score_label" />
+
+        <TextView
+            android:id="@+id/tv_last_score_denom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/ 100"
+            android:textColor="#9CA3AF"
+            android:textSize="18sp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/tv_last_score_value"
+            app:layout_constraintBottom_toBottomOf="@id/tv_last_score_value" />
+
+        <!-- Filler / Hesitation / Pace mini stats -->
+        <TextView
+            android:id="@+id/tv_result_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_last_score_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Do it Again button (shown when completed, replaces start button) -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_do_again"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/create_account_bg"
+        android:drawableStart="@drawable/ic_mic"
+        android:drawablePadding="-40dp"
+        android:paddingStart="60dp"
+        android:paddingEnd="60dp"
+        android:text="🔄  Do it Again"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- View Full Results button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_view_full_results"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_practice_card_outline"
+        android:text="View Full Analysis"
+        android:textAllCaps="false"
+        android:textColor="#06B6D4"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btn_do_again" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

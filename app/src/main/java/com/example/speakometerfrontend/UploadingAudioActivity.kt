@@ -19,7 +19,7 @@ class UploadingAudioActivity : AppCompatActivity() {
 
     private lateinit var tvMaxDuration: TextView
     private lateinit var btnSubmit: AppCompatButton
-    private var selectedFileUri: Uri? = null
+    private var selectedFilePath: String? = null
 
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -49,6 +49,7 @@ class UploadingAudioActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val intent = Intent(this, RecordedAudioAnalysisActivity::class.java)
             intent.putExtra("IS_UPLOAD", true)
+            intent.putExtra("AUDIO_FILE_PATH", selectedFilePath)
             startActivity(intent)
             finish()
         }
@@ -79,21 +80,39 @@ class UploadingAudioActivity : AppCompatActivity() {
             return
         }
 
-        // 3. Duration Check (3 Minutes / 180,000ms)
+        // 3. Duration Check (Min 5s, Max 3 Minutes)
         if (durationMillis > 180000) {
             showError(getString(R.string.error_file_too_long))
             return
         }
+        if (durationMillis < 5000) {
+            val intent = Intent(this, TooShortAudioActivity::class.java)
+            startActivity(intent)
+            return
+        }
 
         // 4. Anti-Exploit Keyword Check
-        val musicKeywords = listOf("song", "track", "music", "remix")
+        val musicKeywords = listOf("song", "track", "music", "remix", "score")
         if (musicKeywords.any { fileName.lowercase(Locale.ROOT).contains(it) }) {
             showError(getString(R.string.error_music_detected))
+            Toast.makeText(this, "It's not correct audio", Toast.LENGTH_LONG).show()
             return
         }
 
         // SUCCESS: Passing both fileName and fileSizeMb to fix the argument count error
-        selectedFileUri = uri
+        try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val cacheFile = java.io.File(cacheDir, "upload_audio.mp3")
+            inputStream?.use { input ->
+                cacheFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            selectedFilePath = cacheFile.absolutePath
+        } catch (e: Exception) {
+            showError("Error processing file")
+            return
+        }
         val fileSizeMb = fileSize / (1024.0 * 1024.0)
 
         tvMaxDuration.text = getString(R.string.file_selected_info, fileName, fileSizeMb)

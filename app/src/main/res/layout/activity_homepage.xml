@@ -192,33 +192,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/actions_container" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_premium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="32dp"
-        app:cardBackgroundColor="#1A162D"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_start_analysis">
-
-        <include
-            layout="@layout/item_premium_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@drawable/bottom_nav_bg"
-        app:itemIconSize="32dp"
-        app:itemIconTint="@color/nav_item_color"
+        android:layout_height="80dp"
+        android:background="#121017"
+        app:itemIconTint="@null"
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/app_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

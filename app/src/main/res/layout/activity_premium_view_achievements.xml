@@ -105,6 +105,7 @@
 
         <!-- Stat 1 -->
         <TextView
+            android:id="@+id/tv_ach_stat_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -116,6 +117,7 @@
 
         <!-- Stat 2 -->
         <TextView
+            android:id="@+id/tv_ach_stat_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -127,6 +129,7 @@
 
         <!-- Stat 3 -->
         <TextView
+            android:id="@+id/tv_ach_stat_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

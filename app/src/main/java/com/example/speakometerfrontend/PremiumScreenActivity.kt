@@ -21,12 +21,7 @@ class PremiumScreenActivity : AppCompatActivity() {
         val btnSeePlans = findViewById<AppCompatButton>(R.id.btn_see_plans)
         val btnMaybeLater = findViewById<AppCompatButton>(R.id.btn_maybe_later)
 
-        // 2. Navigation Logic (Back to Practice Hub)
         val navigateBack = {
-            // Since the user came from Practice Hub, we go back there
-            val intent = Intent(this, PracticeHubActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
             applyFadeTransition()
             finish()
         }
@@ -46,8 +41,8 @@ class PremiumScreenActivity : AppCompatActivity() {
 
         // 3. See Plans Logic
         btnSeePlans.setOnClickListener {
-            // Replace with your actual payment or plans selection activity
-            Toast.makeText(this, "Loading Subscription Plans...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, PremiumPackSelectionActivity::class.java)
+            startActivity(intent)
         }
     }
 

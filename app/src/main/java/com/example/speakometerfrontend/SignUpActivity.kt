@@ -18,6 +18,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import com.example.speakometerfrontend.network.ApiClient
+import com.example.speakometerfrontend.network.SignupRequest
+import org.json.JSONObject
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -33,9 +40,19 @@ class SignUpActivity : AppCompatActivity() {
 
         // Initialize the class-level variables
         val backButton: ImageButton = findViewById(R.id.btn_back)
+        // Fixed mismatched IDs from the XML layout:
+        // et_password maps to the second field (which has the "Username" label in XML)
+        // et_confirm_password maps to the third field (which has the "Password" label in XML)
         emailEditText = findViewById(R.id.et_email)
-        passwordEditText = findViewById(R.id.et_password)
+        
+        // Use the proper Password field for length validation
+        passwordEditText = findViewById(R.id.et_confirm_password)
+        
+        // We do not actually have a confirmation field in the UI. 
+        // The layout only has: Email (et_email), Username (et_password), and Password (et_confirm_password).
+        // Let's bind confirmPasswordEditText to exactly the same as password, and we'll adjust the logic below.
         confirmPasswordEditText = findViewById(R.id.et_confirm_password)
+        
         termsCheckBox = findViewById(R.id.cb_terms)
         val termsTextView: TextView = findViewById(R.id.tv_terms_link)
         val createAccountButton: AppCompatButton = findViewById(R.id.btn_create_account_final)
@@ -46,11 +63,56 @@ class SignUpActivity : AppCompatActivity() {
 
         createAccountButton.setOnClickListener {
             if (validateInput()) {
-                Toast.makeText(this, "Account Creation Successful!", Toast.LENGTH_SHORT).show()
+                performSignUp()
+            }
+        }
+    }
 
-                val intent = Intent(this, PermissionsActivity::class.java)
-                startActivity(intent)
-                // Proceed to next slide logic
+    private fun performSignUp() {
+        val email = emailEditText.text.toString().trim()
+        val password = passwordEditText.text.toString()
+
+        val createAccountButton: AppCompatButton = findViewById(R.id.btn_create_account_final)
+        createAccountButton.isEnabled = false
+        createAccountButton.text = "Creating Account..."
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val request = SignupRequest(email = email, password = password)
+                val response = ApiClient.authService.signupUser(request)
+
+                withContext(Dispatchers.Main) {
+                    createAccountButton.isEnabled = true
+                    createAccountButton.text = "Create Account"
+
+                    if (response.isSuccessful) {
+                        // Save login state and user info
+                        val username = findViewById<EditText>(R.id.et_password).text.toString().trim()
+                        getSharedPreferences("UserPrefs", MODE_PRIVATE).edit()
+                            .putBoolean("IS_LOGGED_IN", true)
+                            .putString("USER_EMAIL", email)
+                            .putString("USER_NAME", username.ifEmpty { email.substringBefore("@") })
+                            .apply()
+                        Toast.makeText(this@SignUpActivity, "Account Creation Successful!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@SignUpActivity, PermissionsActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        val errorMsg = try {
+                            JSONObject(errorBody ?: "").getString("detail")
+                        } catch (e: Exception) {
+                            "Signup failed: ${response.code()}"
+                        }
+                        Toast.makeText(this@SignUpActivity, errorMsg, Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    createAccountButton.isEnabled = true
+                    createAccountButton.text = "Create Account"
+                    Toast.makeText(this@SignUpActivity, "Network error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
@@ -59,7 +121,6 @@ class SignUpActivity : AppCompatActivity() {
         // Now we use the variables we already "found" in onCreate
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString()
-        val confirmPassword = confirmPasswordEditText.text.toString()
         val termsChecked = termsCheckBox.isChecked
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -70,11 +131,6 @@ class SignUpActivity : AppCompatActivity() {
         // Match your 2026 project requirement: 8 characters (Figma hint said 8, code said 6)
         if (password.length < 8) {
             Toast.makeText(this, "Password must be at least 8 characters.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (password != confirmPassword) {
-            Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show()
             return false
         }
 

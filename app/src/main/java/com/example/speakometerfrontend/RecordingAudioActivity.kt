@@ -1,15 +1,21 @@
 package com.example.speakometerfrontend
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.semantics.text
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import java.io.File
 import java.util.Locale
 
 class RecordingAudioActivity : AppCompatActivity() {
@@ -20,6 +26,9 @@ class RecordingAudioActivity : AppCompatActivity() {
     private var isRecording = false
     private var secondsElapsed = 0
     private val handler = Handler(Looper.getMainLooper())
+
+    private var mediaRecorder: MediaRecorder? = null
+    private var audioFilePath: String = ""
 
     private val timerRunnable = object : Runnable {
         override fun run() {
@@ -41,6 +50,9 @@ class RecordingAudioActivity : AppCompatActivity() {
         val btnBack = findViewById<ImageButton>(R.id.btn_back)
         val micBg = findViewById<View>(R.id.view_mic_bg)
 
+        // Prepare the output file path
+        audioFilePath = "${cacheDir.absolutePath}/recorded_audio.mp4"
+
         // PERSONALIZATION LOGIC: Check if we came from the "Tips" screen
         val isPracticeMode = intent.getBooleanExtra("IS_PRACTICE_MODE", false)
         if (isPracticeMode) {
@@ -49,38 +61,122 @@ class RecordingAudioActivity : AppCompatActivity() {
             tvSubtitle.text = "Tap to start exercise"
         }
 
-        btnBack.setOnClickListener { finish() }
+        btnBack.setOnClickListener {
+            stopRecordingSilently()
+            finish()
+        }
 
         micBg.setOnClickListener {
             if (!isRecording) {
-                isRecording = true
-                secondsElapsed = 0
-                tvSubtitle.text = getString(R.string.recording_in_progress)
-                handler.post(timerRunnable)
+                // Check permission before recording
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                    != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.RECORD_AUDIO), 200)
+                } else {
+                    startRecording()
+                }
             } else {
-                stopAndCheckDuration()
+                stopRecordingAndProceed()
             }
         }
     }
 
-    private fun stopAndCheckDuration() {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 200 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startRecording()
+        } else {
+            Toast.makeText(this, "Microphone permission is required to record audio", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun startRecording() {
+        try {
+            // Delete old recording if exists
+            File(audioFilePath).let { if (it.exists()) it.delete() }
+
+            mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                MediaRecorder(this)
+            } else {
+                @Suppress("DEPRECATION")
+                MediaRecorder()
+            }
+
+            mediaRecorder?.apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+                setAudioSamplingRate(16000)
+                setAudioEncodingBitRate(128000)
+                setOutputFile(audioFilePath)
+                prepare()
+                start()
+            }
+
+            isRecording = true
+            secondsElapsed = 0
+            tvSubtitle.text = getString(R.string.recording_in_progress)
+            handler.post(timerRunnable)
+
+        } catch (e: Exception) {
+            Toast.makeText(this, "Failed to start recording: ${e.message}", Toast.LENGTH_LONG).show()
+            mediaRecorder?.release()
+            mediaRecorder = null
+        }
+    }
+
+    private fun stopRecordingAndProceed() {
         isRecording = false
         handler.removeCallbacks(timerRunnable)
 
+        try {
+            mediaRecorder?.apply {
+                stop()
+                release()
+            }
+        } catch (e: Exception) {
+            // Ignore stop errors (e.g. if recording was too short)
+        }
+        mediaRecorder = null
+
         if (secondsElapsed < 5) {
-            // Logic for Slide #13: Too Short
+            // Too Short
             val intent = Intent(this, TooShortAudioActivity::class.java)
             startActivity(intent)
         } else {
-            // Logic for Slide #12: Proceed to Analysis
+            // Proceed to Analysis with the real audio file
             val intent = Intent(this, RecordedAudioAnalysisActivity::class.java)
+            intent.putExtra("AUDIO_FILE_PATH", audioFilePath)
+            
+            // Pass practice flags forward
+            val isPractice = getIntent().getBooleanExtra("IS_PRACTICE_MODE", false)
+            val topic = getIntent().getStringExtra("PRACTICE_TOPIC")
+            intent.putExtra("IS_PRACTICE_MODE", isPractice)
+            intent.putExtra("PRACTICE_TOPIC", topic)
+            
             startActivity(intent)
         }
-        finish() // Ensure the recorder resets for the next use
+        finish()
+    }
+
+    private fun stopRecordingSilently() {
+        if (isRecording) {
+            try {
+                mediaRecorder?.apply {
+                    stop()
+                    release()
+                }
+            } catch (_: Exception) { }
+            mediaRecorder = null
+            isRecording = false
+            handler.removeCallbacks(timerRunnable)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        stopRecordingSilently()
         handler.removeCallbacks(timerRunnable)
     }
 }

@@ -4,10 +4,20 @@
     android:height="28dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+    <!-- Lock body -->
     <path
+        android:fillColor="#00000000"
         android:strokeWidth="2"
         android:strokeColor="#EC4899"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:pathData="M12 15v-2m0 0V7a3 3 0 00-3-3m3 3a3 3 0 013 3v6m-6 0h6a2 2 0 012 2v4a2 2 0 01-2 2H9a2 2 0 01-2-2v-4a2 2 0 012-2z" />
+        android:pathData="M5,11 L5,17 C5,18.1 5.9,19 7,19 L17,19 C18.1,19 19,18.1 19,17 L19,11 C19,9.9 18.1,9 17,9 L7,9 C5.9,9 5,9.9 5,11Z" />
+    <!-- Lock shackle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="2"
+        android:strokeColor="#EC4899"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M8,9 L8,7 C8,4.79 9.79,3 12,3 C14.21,3 16,4.79 16,7 L16,9" />
 </vector>

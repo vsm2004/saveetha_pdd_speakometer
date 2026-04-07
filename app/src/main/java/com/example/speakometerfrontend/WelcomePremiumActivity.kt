@@ -55,8 +55,12 @@ class WelcomePremiumActivity : AppCompatActivity() {
 
         // 4. Explore Button Logic
         btnExplore.setOnClickListener {
-            // Navigate to Home Page and clear the activity stack so they can't "Go Back" to payment
-            val intent = Intent(this, HomePageActivity::class.java)
+            // Navigate to Practice Hub to show the newly unlocked items
+            val intent = Intent(this, PracticeHubActivity::class.java)
+            // Pass flag so Practice Hub un-locks the layout!
+            intent.putExtra("IS_PREMIUM_NOW", true)
+            
+            // Clear the stack so users don't back-button into the payment processing view
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()

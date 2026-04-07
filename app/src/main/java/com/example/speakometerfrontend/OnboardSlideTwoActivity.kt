@@ -23,12 +23,8 @@ class OnboardSlideTwoActivity : AppCompatActivity() {
         // 1. 'Next' button listener
         nextButton.setOnClickListener {
             // Navigate to the third and final onboarding screen
-            // TODO: Create OnboardSlideThreeActivity and uncomment the lines below
-            // val intent = Intent(this, OnboardSlideThreeActivity::class.java)
-            // startActivity(intent)
-
-            // For now, show a placeholder message
-            Toast.makeText(this, "Navigating to Onboarding Slide 3", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, OnboardSlideThreeActivity::class.java)
+            startActivity(intent)
         }
 
         // 2. 'Skip' button listener

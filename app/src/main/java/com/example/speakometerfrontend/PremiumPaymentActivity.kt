@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.content.Context
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -13,6 +14,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
+import com.example.speakometerfrontend.network.ApiClient
+import com.example.speakometerfrontend.network.PremiumApiService
+import com.example.speakometerfrontend.network.UpgradeRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import androidx.core.content.edit
 
 class PremiumPaymentActivity : AppCompatActivity() {
 
@@ -84,22 +93,64 @@ class PremiumPaymentActivity : AppCompatActivity() {
         btnSubmit.isEnabled = false
         btnSubmit.alpha = 0.5f
 
-        // 3. Simulate a 2.5-second bank processing delay
+        // 3. Simulate a 2.5-second bank processing delay (We actually do a real network call inside)
         Handler(Looper.getMainLooper()).postDelayed({
 
             // Use the "Mock Gateway Engine" to decide the result
             val bankResponse = mockBankResponse(cardNumber, cvc)
 
-            // Inside PremiumPaymentActivity.kt (within the Handler postDelayed)
             if (bankResponse == "SUCCESS") {
-                // Change WelcomePremiumActivity to PremiumAccessActivity
-                val welcomeIntent = Intent(this, PremiumAccessActivity::class.java)
-                welcomeIntent.putExtra("IS_FREE_TRIAL", isFreeTrial)
-                welcomeIntent.putExtra("PLAN_TYPE", planType)
-                welcomeIntent.putExtra("PLAN_PRICE", planPrice)
+                // 4. NOW Make the Actual Backend Network Call to upgrade the user!
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        val apiService = ApiClient.retrofit.create(PremiumApiService::class.java)
+                        
+                        // Hardcoding user_id = 1 for the demo, since we don't have a global session manager yet
+                        val request = UpgradeRequest(user_id = 1, plan_type = planType, is_free_trial = isFreeTrial)
+                        val response = apiService.upgradePremium(request)
 
-                startActivity(welcomeIntent)
-                finish()
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful && response.body()?.status == "success") {
+                                // Calculate Expiry Date dynamically (Time Accuracy)
+                                val calendar = java.util.Calendar.getInstance()
+                                if (planType.equals("yearly", ignoreCase = true)) {
+                                    calendar.add(java.util.Calendar.YEAR, 1)
+                                } else {
+                                    calendar.add(java.util.Calendar.MONTH, 1)
+                                }
+                                val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault())
+                                val calculatedExpiry = sdf.format(calendar.time)
+
+                                // Save premium status locally
+                                getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).edit {
+                                    putBoolean("IS_PREMIUM", true)
+                                    putString("PREMIUM_PLAN", planType)
+                                    putString("PREMIUM_EXPIRY", calculatedExpiry)
+                                }
+
+                                Toast.makeText(this@PremiumPaymentActivity, "Database Upgraded successfully!", Toast.LENGTH_SHORT).show()
+                                
+                                val welcomeIntent = Intent(this@PremiumPaymentActivity, WelcomePremiumActivity::class.java)
+                                welcomeIntent.putExtra("IS_FREE_TRIAL", isFreeTrial)
+                                welcomeIntent.putExtra("PLAN_TYPE", planType)
+                                welcomeIntent.putExtra("PLAN_PRICE", planPrice)
+
+                                startActivity(welcomeIntent)
+                                finish()
+                            } else {
+                                btnSubmit.isEnabled = true
+                                btnSubmit.alpha = 1.0f
+                                Toast.makeText(this@PremiumPaymentActivity, "Backend Error: ${response.message()}", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            btnSubmit.isEnabled = true
+                            btnSubmit.alpha = 1.0f
+                            Toast.makeText(this@PremiumPaymentActivity, "Network Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             } else {
                 // Handle Bank Failures (Funds, Wrong Details, etc)
                 btnSubmit.isEnabled = true
@@ -107,7 +158,7 @@ class PremiumPaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Payment Failed: $bankResponse", Toast.LENGTH_LONG).show()
             }
 
-        }, 2500)
+        }, 1500) // Reduced the delay since the network call takes time too
     }
 
     /**

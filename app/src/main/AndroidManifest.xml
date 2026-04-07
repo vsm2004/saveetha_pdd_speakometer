@@ -7,12 +7,15 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,16 +26,19 @@
         android:theme="@style/Theme.Speakometer"
         tools:targetApi="31">
         <activity
+            android:name=".PremiumPaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".FeedbackActivity"
             android:exported="false" />
         <activity
+            android:name=".ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OfflineReminderActivity"
+            android:exported="false" />
+        <activity
             android:name=".OfflineRemainderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OfflineActivityRemainder"
-            android:exported="false" />
-        <activity
-            android:name=".NetworkUtils"
             android:exported="false" />
         <activity
             android:name=".PremiumExpiryActivity"
@@ -104,6 +110,9 @@
             android:name=".OnboardSlideThreeActivity"
             android:exported="false" />
         <activity
+            android:name=".AppPermissionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".OnboardSlideTwoActivity"
             android:exported="false" />
         <activity
@@ -140,6 +149,16 @@
 
             <!-- The LAUNCHER intent-filter has been removed from here -->
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

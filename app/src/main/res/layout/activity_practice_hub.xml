@@ -51,10 +51,10 @@
                     android:id="@+id/iv_icon_filler"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@drawable/bg_practice_circle_green"
+                    android:background="@drawable/bg_practice_circle_purple"
                     android:contentDescription="@string/title_filler"
                     android:padding="12dp"
-                    android:src="@drawable/ic_practice_check"
+                    android:src="@drawable/ic_practice_play"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -176,6 +176,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_art_storytelling"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -219,6 +220,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_presentation_skills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -262,6 +264,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_upgrade_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -334,7 +337,8 @@
         android:background="#121017"
         app:itemIconTint="@null"
         app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu_two" />
+        app:menu="@menu/app_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

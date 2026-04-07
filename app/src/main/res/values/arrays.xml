@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define the pattern for the dashed border: [dash length, gap length] -->
+    <integer-array name="dashed_stroke">
+        <item>10</item> <!-- Length of the dash -->
+        <item>10</item> <!-- Length of the gap -->
+    </integer-array>
+</resources>

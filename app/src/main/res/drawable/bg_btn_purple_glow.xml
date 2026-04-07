@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Glow Effect around the button -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="300dp"
+                android:startColor="#4D3700B3"
+                android:endColor="#003700B3"
+                android:centerX="0.5"
+                android:centerY="0.5"/>
+        </shape>
+    </item>
+    
+    <!-- The Solid Button Itself -->
+    <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <solid android:color="#4B39C1" />
+        </shape>
+    </item>
+</layer-list>

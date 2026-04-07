@@ -58,26 +58,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
 
-            <FrameLayout
-                android:id="@+id/fl_profile_gradient"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_profile_gradient"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/bg_profile_gradient_circle"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_profile_initial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/profile_initial_a"
-                    android:textColor="@color/white"
-                    android:textSize="40sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/fl_profile_gradient"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_profile_gradient_circle">
+
+                    <TextView
+                        android:id="@+id/tv_profile_initial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/profile_initial_a"
+                        android:textColor="@color/white"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:contentDescription="@string/profile_initial_a" />
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
 
             <FrameLayout
                 android:id="@+id/fl_camera_btn"
@@ -148,9 +165,11 @@
                 android:hint="@string/hint_email"
                 android:autofillHints="emailAddress"
                 android:paddingHorizontal="16dp"
-                android:textColor="@color/white"
+                android:textColor="#888888"
                 android:textColorHint="#606060"
                 android:textSize="16sp"
+                android:enabled="false"
+                android:focusable="false"
                 android:inputType="textEmailAddress" />
 
             <TextView

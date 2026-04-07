@@ -6,7 +6,9 @@ plugins {
 
 android {
     namespace = "com.example.speakometerfrontend"
-    compileSdk = 36 // Note: API 36 is very new; ensure your Android Studio is fully updated.
+    // Note: API 36 is the Preview version.
+    // If you encounter stable build issues, you can change this to 35.
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.speakometerfrontend"
@@ -40,7 +42,7 @@ android {
 }
 
 dependencies {
-    // Version Catalog implementations (The preferred way)
+    // --- Compose & UI Core ---
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -49,23 +51,32 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // --- App Compat & Views ---
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
-    implementation(libs.material) // This replaces the "com.google.android.material:material:1.12.0" line
-
-    // Updated ConstraintLayout to use Version Catalog to fix rendering
     implementation(libs.androidx.constraintlayout)
 
-    // Third-party and specialized libraries
+    // --- Material Components ---
+    // FIXED: Removed libs.material.v1110 to stop "Duplicate Resources" error.
+    // Keeping only the latest stable version (1.13.0).
+    implementation(libs.material)
+
+    // --- Specialized Libraries ---
     implementation(libs.circleimageview)
     implementation(libs.androidx.core.splashscreen)
-    implementation(libs.material.v1110)
-    implementation(libs.checkout)
+    implementation(libs.checkout) // Razorpay
 
-    // Testing
+    // --- Networking & Data ---
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.compose)
+
+    // --- Testing ---
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    implementation(libs.androidx.navigation.compose)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)

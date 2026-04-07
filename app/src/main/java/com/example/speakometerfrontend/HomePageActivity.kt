@@ -17,6 +17,7 @@ class HomePageActivity : AppCompatActivity() {
         // 1. Initialize Bottom Navigation and Fix Icon Fidelity
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.itemIconTintList = null // Allows original multi-color PNGs to show
+        bottomNav.selectedItemId = R.id.nav_home
 
         // 2. Setup Action Cards (Recording and Upload)
         setupActionCards()
@@ -26,8 +27,45 @@ class HomePageActivity : AppCompatActivity() {
 
         // 4. Profile Interaction
         findViewById<TextView>(R.id.tv_profile_initial).setOnClickListener {
-            //checkNetworkAndNavigate(Intent(this, ProfilePageActivity::class.java))
+            checkNetworkAndNavigate(Intent(this, ProfileAccountActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateGreetingAndProfile()
+        // Ensure Home is highlighted
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).selectedItemId = R.id.nav_home
+    }
+
+    private fun updateGreetingAndProfile() {
+        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val userName = prefs.getString("USER_NAME", "User") ?: "User"
+        
+        // 1. Update Profile Initial (Synchronize with ProfileEdit changes)
+        val tvProfileInitial = findViewById<TextView>(R.id.tv_profile_initial)
+        if (userName.isNotEmpty()) {
+            tvProfileInitial.text = userName.first().uppercase()
+        }
+
+        // 2. Dynamic Greeting based on Time
+        val tvGreeting = findViewById<TextView>(R.id.tv_greeting)
+        val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
+        
+        val greetingPrefix = when {
+            hour in 5..11 -> "Good morning"
+            hour in 12..16 -> "Good afternoon"
+            hour in 17..20 -> "Good evening"
+            else -> "Good night"
+        }
+
+        val emoji = if (hour in 21..23 || hour in 0..4) " 🌃" else " 👋"
+        
+        // Extract first name for a friendlier feel
+        val firstName = userName.split(" ").firstOrNull() ?: userName
+        
+        // Final result: "Good afternoon, Manu Sai! 👋"
+        tvGreeting.text = "$greetingPrefix, $firstName!$emoji"
     }
 
     private fun setupActionCards() {
@@ -48,21 +86,26 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation(bottomNav: BottomNavigationView) {
+        bottomNav.selectedItemId = R.id.nav_home
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> true
                 R.id.nav_history -> {
-                    checkNetworkAndNavigate(null, "History")
+                    val intent = Intent(this@HomePageActivity, HistoryActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    checkNetworkAndNavigate(intent)
                     true
                 }
                 R.id.nav_practice -> {
-                    // Navigate to PracticeHubActivity with network check
-                    val intent = Intent(this, PracticeHubActivity::class.java)
+                    val intent = Intent(this@HomePageActivity, PracticeHubActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
                     checkNetworkAndNavigate(intent)
                     true
                 }
                 R.id.nav_profile -> {
-                    checkNetworkAndNavigate(null, "Profile")
+                    val intent = Intent(this@HomePageActivity, ProfileAccountActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                    checkNetworkAndNavigate(intent)
                     true
                 }
                 else -> false

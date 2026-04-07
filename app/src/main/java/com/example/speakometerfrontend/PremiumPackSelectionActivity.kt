@@ -1,6 +1,7 @@
 package com.example.speakometerfrontend
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageButton
@@ -45,8 +46,18 @@ class PremiumPackSelectionActivity : AppCompatActivity() {
         // Subscribe Click
         btnSubscribe.setOnClickListener {
             if (selectedPlan != null) {
-                Toast.makeText(this, "Proceeding with $selectedPlan plan", Toast.LENGTH_SHORT).show()
-                // Add your payment logic here
+                val intent = Intent(this, PremiumPaymentActivity::class.java)
+                
+                // Pass dynamic details based on selection
+                val type = if (selectedPlan == "yearly") "Yearly" else "Monthly"
+                val price = if (selectedPlan == "yearly") "1199" else "199"
+                
+                intent.putExtra("IS_FREE_TRIAL", false)
+                intent.putExtra("PLAN_TYPE", type)
+                intent.putExtra("PLAN_PRICE", price)
+                
+                startActivity(intent)
+                overridePendingTransition(0, 0)
             } else {
                 Toast.makeText(this, "Please select a plan first", Toast.LENGTH_SHORT).show()
             }

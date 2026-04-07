@@ -69,11 +69,18 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun navigateToNextScreen() {
-        // Create an Intent to start your LoginActivity
-        val intent = Intent(this, LoginActivity::class.java) // Assuming the next screen is LoginActivity
-        startActivity(intent)
+        // Check if user is already logged in
+        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val isLoggedIn = prefs.getBoolean("IS_LOGGED_IN", false)
 
-        // Finish the SplashActivity so the user can't return to it
+        val intent = if (isLoggedIn) {
+            // Skip login, go directly to home
+            Intent(this, HomePageActivity::class.java)
+        } else {
+            // First time or logged out, show login
+            Intent(this, LoginActivity::class.java)
+        }
+        startActivity(intent)
         finish()
     }
 

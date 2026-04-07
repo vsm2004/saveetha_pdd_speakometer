@@ -6,8 +6,21 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.speakometerfrontend.network.VoiceApiClient
+import com.example.speakometerfrontend.network.AnalyzeResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 class RecordedAudioAnalysisActivity : AppCompatActivity() {
 
@@ -33,23 +46,65 @@ class RecordedAudioAnalysisActivity : AppCompatActivity() {
     }
 
     private fun startAnalysisSimulation() {
-        val tickInterval = 40L
-        // We remove the unused 'increment' variable to clear the warning
+        val activeColor = ContextCompat.getColor(this, R.color.cyan_main)
 
-        val progressRunnable = object : Runnable {
-            override fun run() {
-                if (currentProgress < 100) {
-                    currentProgress += 1
-                    progressBar.progress = currentProgress
+        // 1. Visually trigger all the loaders
+        progressBar.progress = 50
+        statusFiller.setTextColor(activeColor)
+        statusTone.setTextColor(activeColor)
 
-                    updateStatusMilestones(currentProgress)
-                    handler.postDelayed(this, tickInterval)
+        // 2. Get the real audio file path from RecordingAudioActivity
+        val audioFilePath = intent.getStringExtra("AUDIO_FILE_PATH")
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val audioFile = if (audioFilePath != null) {
+                    File(audioFilePath)
                 } else {
-                    navigateToResults()
+                    // Fallback: create dummy file if no path provided
+                    val dummy = File(cacheDir, "test_audio.mp4")
+                    if (!dummy.exists()) dummy.writeText("fake audio file bytes")
+                    dummy
+                }
+
+                if (!audioFile.exists()) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RecordedAudioAnalysisActivity, "Audio file not found", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    return@launch
+                }
+
+                val requestFile = audioFile.asRequestBody("audio/mp4".toMediaTypeOrNull())
+                val body = MultipartBody.Part.createFormData("file", audioFile.name, requestFile)
+
+                // 3. Make the API Call to Python
+                val response = VoiceApiClient.analysisService.analyzeSpeech(body)
+
+                withContext(Dispatchers.Main) {
+                    progressBar.progress = 100
+                    statusScore.setTextColor(activeColor)
+
+                    if (response.isSuccessful) {
+                        val analysis = response.body()
+                        if (analysis != null) {
+                            navigateToResults(analysis)
+                        } else {
+                            Toast.makeText(this@RecordedAudioAnalysisActivity, "Empty response", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    } else {
+                        Toast.makeText(this@RecordedAudioAnalysisActivity, "Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                        finish()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@RecordedAudioAnalysisActivity, "Upload Failed: ${e.message}", Toast.LENGTH_LONG).show()
+                    finish()
                 }
             }
         }
-        handler.post(progressRunnable)
     }
 
     private fun updateStatusMilestones(progress: Int) {
@@ -61,16 +116,23 @@ class RecordedAudioAnalysisActivity : AppCompatActivity() {
         if (progress >= 90) statusScore.setTextColor(activeColor)
     }
 
-    private fun navigateToResults() {
-        // Simulate a calculated score (e.g., 78)
-        val calculatedScore = 78
+    private fun navigateToResults(analysis: AnalyzeResponse) {
+        // Capture the incoming intent's practice flags BEFORE the apply block
+        val isPractice = this.intent.getBooleanExtra("IS_PRACTICE_MODE", false)
+        val practiceTopic = this.intent.getStringExtra("PRACTICE_TOPIC")
 
-        val intent = Intent(this, AnalysisResultsActivity::class.java)
-        // Pass the score to the next activity
-        intent.putExtra("EXTRA_SCORE", calculatedScore)
+        val intent = Intent(this, AnalysisResultsActivity::class.java).apply {
+            putExtra("EXTRA_SCORE", analysis.confidenceScore ?: 0)
+            putExtra("EXTRA_WPM", analysis.wpm ?: 0.0)
+            putExtra("EXTRA_TONE", analysis.toneAnalysis ?: "Unknown")
+            putExtra("EXTRA_FILLERS", analysis.fillerCount ?: 0)
+            putExtra("EXTRA_ACCENT", analysis.accentScore ?: 0.0)
+
+            // Forward practice flags with keys that AnalysisResultsActivity reads
+            putExtra("EXTRA_IS_PRACTICE", isPractice)
+            putExtra("EXTRA_PRACTICE_TOPIC", practiceTopic)
+        }
         startActivity(intent)
-
-        // Finish so the user can't "back" into the loading spinner
         finish()
     }
 

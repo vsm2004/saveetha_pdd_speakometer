@@ -15,11 +15,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.graphics.toColorInt // Essential KTX import
+import androidx.core.graphics.toColorInt
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import com.example.speakometerfrontend.network.ApiClient
+import com.example.speakometerfrontend.network.LoginRequest
+import org.json.JSONObject
+import androidx.core.content.edit // Important for KTX SharedPreferences
 
 class LoginActivity : AppCompatActivity() {
 
-    // Move views to class level to resolve "Unused Variable" errors
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
 
@@ -27,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize variables
         val backButton: ImageButton = findViewById(R.id.btn_back_login)
         emailEditText = findViewById(R.id.et_login_email)
         passwordEditText = findViewById(R.id.et_login_password)
@@ -43,16 +49,78 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             if (validateInput()) {
-                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
-                // Navigation logic for simulation goes here
+                performLogin()
             }
         }
 
         setupSignUpFooter(signUpFooter)
     }
 
+    private fun performLogin() {
+        val email = emailEditText.text.toString().trim()
+        val password = passwordEditText.text.toString()
+
+        val loginButton: AppCompatButton = findViewById(R.id.btn_login_final)
+        loginButton.isEnabled = false
+        loginButton.text = getString(R.string.login_text)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val request = LoginRequest(email, password)
+                val response = ApiClient.authService.loginUser(request)
+
+                withContext(Dispatchers.Main) {
+                    loginButton.isEnabled = true
+                    loginButton.text = getString(R.string.login_text)
+
+                    // FIXED: Added the missing check for response success
+                    if (response.isSuccessful) {
+                        val authResponse = response.body()
+                        val user = authResponse?.user
+
+                        // Save login state — preserve any locally-edited name
+                        val prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                        val existingLocalName = prefs.getString("USER_NAME", null)
+                        // Only use server name if no local name has been saved yet
+                        val nameToSave = if (!existingLocalName.isNullOrEmpty()) {
+                            existingLocalName
+                        } else {
+                            user?.name ?: "User"
+                        }
+                        prefs.edit {
+                            putBoolean("IS_LOGGED_IN", true)
+                            putInt("USER_ID", user?.id ?: -1)
+                            putString("USER_EMAIL", email)
+                            putString("USER_NAME", nameToSave)
+                            putBoolean("IS_PREMIUM", user?.premiumStatus ?: false)
+                            putString("PREMIUM_EXPIRY", user?.premiumExpiry)
+                        }
+
+                        Toast.makeText(this@LoginActivity, "Welcome back, ${user?.name ?: "User"}!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LoginActivity, PermissionsActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        val errorMsg = try {
+                            JSONObject(errorBody ?: "").getString("detail")
+                        } catch (e: Exception) {
+                            "Login failed: ${response.code()}"
+                        }
+                        Toast.makeText(this@LoginActivity, errorMsg, Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    loginButton.isEnabled = true
+                    loginButton.text = getString(R.string.login_text)
+                    Toast.makeText(this@LoginActivity, "Network error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
     private fun validateInput(): Boolean {
-        // Use the class-level variables initialized in onCreate
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString()
 
@@ -72,7 +140,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupSignUpFooter(textView: TextView) {
-        val fullText = getString(R.string.signup_footer)
+        // Ensure this string exists in strings.xml
+        val fullText = try { getString(R.string.signup_footer) } catch (e: Exception) { "Don't have an account? Sign up" }
         val clickableText = "Sign up"
         val startIndex = fullText.indexOf(clickableText)
 
@@ -87,7 +156,6 @@ class LoginActivity : AppCompatActivity() {
 
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                // Use KTX extension for Cyan theme color
                 ds.color = "#06B6D4".toColorInt()
                 ds.isUnderlineText = false
             }
