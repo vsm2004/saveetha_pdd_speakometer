@@ -3,7 +3,10 @@ main.py - FastAPI backend for Speak-o-Meter
 Converted from legacy PHP backend using SQLAlchemy ORM
 """
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
+from fastapi.responses import JSONResponse
+import traceback
+import logging
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
 from utils import SessionLocal, init_db, test_db_connection
@@ -38,13 +41,42 @@ def get_db():
         db.close()
 
 
+# Global Exception Handler to catch 500 errors and log them
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    # Log the full traceback to the terminal/console
+    error_traceback = traceback.format_exc()
+    print("\n" + "="*50)
+    print(f"❌ CRITICAL SERVER ERROR: {str(exc)}")
+    print(error_traceback)
+    print("="*50 + "\n")
+    
+    response_content = {
+        "status": "error",
+        "message": "Internal Server Error",
+    }
+    
+    # If in debug mode, return the actual error details to the app
+    if settings.DEBUG:
+        response_content["detail"] = str(exc)
+        response_content["traceback"] = error_traceback
+        
+    return JSONResponse(
+        status_code=500,
+        content=response_content
+    )
+
+
 # Health check endpoint
 @app.get("/health")
 def health_check():
-    """Check if the API is running"""
+    """Check if the API and Database are running"""
+    db_ok = test_db_connection()
     return {
-        "status": "success",
-        "message": "Speak-o-Meter Backend is running"
+        "status": "success" if db_ok else "error",
+        "api": "online",
+        "database": "connected" if db_ok else "disconnected",
+        "message": "Speak-o-Meter Backend is running" if db_ok else "CRITICAL: Database connection failed"
     }
 
 

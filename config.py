@@ -45,6 +45,7 @@ class Settings:
     
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+    DEBUG: bool = os.getenv("DEBUG", "true").lower() == "true"
 
 
 settings = Settings()

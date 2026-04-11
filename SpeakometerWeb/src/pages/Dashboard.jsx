@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Mic, Upload, Square, Activity, FileCheck, Brain, TrendingUp, Calendar, ChevronRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
-import { getApiUrl } from '../config';
+import { getApiUrl } from '../utils/config';
 
 export default function Dashboard() {
   const navigate = useNavigate();

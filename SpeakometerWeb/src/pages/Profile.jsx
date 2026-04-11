@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { User, Mail, Save, AlertCircle, CheckCircle, ChevronRight, BarChart2, Award, Settings, LogOut } from 'lucide-react';
-import { getApiUrl } from '../config';
+import { getApiUrl } from '../utils/config';
 
 export default function Profile() {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { Crown, Check, Zap, BarChart, Shield, Play, X, CreditCard, Calendar, Lock, AlertCircle, CheckCircle } from 'lucide-react';
-import { getApiUrl } from '../config';
+import { getApiUrl } from '../utils/config';
 
 export default function Premium() {
   const navigate = useNavigate();

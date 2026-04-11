@@ -1,16 +1,62 @@
-# React + Vite
+# Speakometer Web - AI Pronunciation Coach 🎙️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Speakometer is a cutting-edge web application designed to help users master their English pronunciation and accent using real-time AI analysis. This repository contains the React-based web frontend.
 
-Currently, two official plugins are available:
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![React](https://img.shields.io/badge/React-19-blue)
+![Vite](https://img.shields.io/badge/Vite-8-purple)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+- **Voice Analysis:** Real-time feedback on WPM, Tone, and Accent accuracy.
+- **Practice Hub:** Curated exercises to improve specific phonetic sounds.
+- **History Tracking:** Visualized progress reports and assessment logs.
+- **Premium Features:** Access to advanced analytics and achievement tracking.
+- **Cross-Platform Sync:** Seamless integration with the Speakometer Android app.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React 19 (Vite)
+- **Styling:** Vanilla CSS (Modern CSS3)
+- **State Management:** React Context API
+- **Networking:** Axios
+- **Icons:** Lucide-React
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/SpeakometerWeb.git
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   cd SpeakometerWeb
+   npm install
+   ```
+
+3. **Configure Environment:**
+   Create a `.env` file in the root directory and add your backend URL:
+   ```env
+   VITE_API_BASE_URL=http://your-backend-ip:8000
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+## 🏗️ Folder Structure
+
+- `src/components`: Reusable UI components.
+- `src/pages`: Main screen containers and route logic.
+- `src/services`: API communication and logic layers.
+- `src/styles`: Global CSS and design tokens.
+- `src/utils`: Helper functions and formatters.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+Built with ❤️ for better communication.

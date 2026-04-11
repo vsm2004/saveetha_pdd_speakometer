@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Mic } from 'lucide-react';
-import { getApiUrl } from '../config';
+import { getApiUrl } from '../utils/config';
 
 export default function Signup() {
   const [name, setName] = useState('');

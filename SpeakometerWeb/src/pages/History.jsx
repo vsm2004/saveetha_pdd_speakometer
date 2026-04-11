@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft, Clock, Activity, TrendingUp } from 'lucide-react';
+import { getApiUrl } from '../utils/config';
 
 export default function History() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function History() {
 
     const fetchHistory = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/sessions/${userId}`);
+        const response = await axios.get(getApiUrl(`sessions/${userId}`));
         const data = response.data;
         if (data.status === 'success') {
           setSessions(data.sessions || []);

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft, Mic, Square, Play, CheckCircle, AlertCircle, Info } from 'lucide-react';
-import { getApiUrl } from '../config';
+import { getApiUrl } from '../utils/config';
 
 const PRACTICE_DATA = {
   'Filler Words': {
