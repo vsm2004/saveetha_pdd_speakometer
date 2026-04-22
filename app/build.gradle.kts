@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.simats.speakometerfrontend"
+    namespace = "com.simats.speakometer"
     // Note: API 36 is the Preview version.
     // If you encounter stable build issues, you can change this to 35.
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.simats.speakometerfrontend"
+        applicationId = "com.simats.speakometer"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
